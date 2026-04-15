@@ -1,410 +1,680 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>CAONGD · Informe interactivo 2023</title>
-<meta name="description" content="Informe interactivo profesional CAONGD 2023" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CAONGD · Informe interactivo 2023</title>
+  <meta name="description" content="Informe interactivo profesional CAONGD 2023" />
 
-<style>
-:root{
-  --bg:#071019;
-  --panel:rgba(255,255,255,.05);
-  --panel2:rgba(255,255,255,.08);
-  --line:rgba(255,255,255,.10);
-  --text:#ffffff;
-  --muted:rgba(255,255,255,.68);
-  --soft:rgba(255,255,255,.45);
-  --accent:#00c2ff;
-  --accent2:#6dffb7;
-  --danger:#ff8e8e;
-  --max:1380px;
-  --radius:24px;
-  --shadow:0 20px 70px rgba(0,0,0,.35);
-}
+  <style>
+    :root{
+      --bg:#071019;
+      --bg2:#0a1824;
+      --panel:rgba(255,255,255,.05);
+      --panel2:rgba(255,255,255,.08);
+      --line:rgba(255,255,255,.10);
+      --text:#ffffff;
+      --muted:rgba(255,255,255,.72);
+      --soft:rgba(255,255,255,.46);
+      --accent:#00c2ff;
+      --accent2:#75ffb6;
+      --warn:#ffd28c;
+      --max:1380px;
+      --radius:24px;
+      --shadow:0 20px 70px rgba(0,0,0,.34);
+    }
 
-*{box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{
-  margin:0;
-  font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
-  color:var(--text);
-  background:
-    radial-gradient(circle at 20% 0%, rgba(0,194,255,.12), transparent 25%),
-    radial-gradient(circle at 100% 100%, rgba(109,255,183,.08), transparent 28%),
-    linear-gradient(180deg,#071019 0%, #09141e 100%);
-}
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(circle at 20% 0%, rgba(0,194,255,.12), transparent 25%),
+        radial-gradient(circle at 100% 100%, rgba(117,255,182,.08), transparent 28%),
+        linear-gradient(180deg,var(--bg) 0%, var(--bg2) 100%);
+    }
 
-.wrap{max-width:var(--max);margin:auto;padding:26px}
+    a{color:inherit}
+    code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+    .wrap{max-width:var(--max);margin:auto;padding:26px 24px 90px}
 
-.topbar{
-  position:sticky;
-  top:16px;
-  z-index:10;
-  backdrop-filter:blur(18px);
-  background:rgba(0,0,0,.32);
-  border:1px solid var(--line);
-  border-radius:999px;
-  padding:14px 22px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  margin-bottom:34px;
-}
+    .topbar{
+      position:sticky;
+      top:16px;
+      z-index:20;
+      backdrop-filter:blur(18px);
+      background:rgba(0,0,0,.34);
+      border:1px solid var(--line);
+      border-radius:999px;
+      padding:14px 22px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:22px;
+      margin-bottom:34px;
+    }
 
-.eyebrow{
-  font-size:11px;
-  letter-spacing:.28em;
-  text-transform:uppercase;
-  color:var(--soft);
-}
+    .eyebrow{
+      font-size:11px;
+      letter-spacing:.28em;
+      text-transform:uppercase;
+      color:var(--soft);
+    }
 
-.topbar h1{
-  margin:3px 0 0;
-  font-size:14px;
-  font-weight:600;
-}
+    .topbar h1{
+      margin:3px 0 0;
+      font-size:14px;
+      font-weight:600;
+    }
 
-.nav{
-  display:flex;
-  gap:18px;
-}
+    .nav{
+      display:flex;
+      gap:18px;
+      align-items:center;
+      flex-wrap:wrap;
+    }
 
-.nav a{
-  color:var(--muted);
-  text-decoration:none;
-  font-size:14px;
-}
+    .nav a{
+      color:var(--muted);
+      text-decoration:none;
+      font-size:14px;
+      transition:.2s ease;
+    }
 
-.nav a:hover{color:#fff}
+    .nav a:hover{color:#fff}
 
-.hero{
-  display:grid;
-  grid-template-columns:1.1fr .9fr;
-  gap:28px;
-  align-items:end;
-  padding:20px 0 60px;
-}
+    .hero{
+      display:grid;
+      grid-template-columns:1.1fr .9fr;
+      gap:28px;
+      align-items:end;
+      padding:18px 0 56px;
+    }
 
-.pill{
-  display:inline-flex;
-  padding:8px 14px;
-  border-radius:999px;
-  border:1px solid var(--line);
-  background:rgba(255,255,255,.04);
-  color:var(--muted);
-  font-size:12px;
-}
+    .pill{
+      display:inline-flex;
+      padding:8px 14px;
+      border-radius:999px;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.04);
+      color:var(--muted);
+      font-size:12px;
+    }
 
-.hero h2{
-  font-size:clamp(3rem,7vw,6rem);
-  line-height:.95;
-  letter-spacing:-.05em;
-  margin:18px 0 16px;
-}
+    .hero h2{
+      font-size:clamp(3rem,7vw,6rem);
+      line-height:.95;
+      letter-spacing:-.05em;
+      margin:18px 0 16px;
+      max-width:860px;
+    }
 
-.lead{
-  max-width:720px;
-  color:var(--muted);
-  line-height:1.75;
-  font-size:18px;
-}
+    .lead{
+      max-width:760px;
+      color:var(--muted);
+      line-height:1.75;
+      font-size:18px;
+    }
 
-.actions{
-  display:flex;
-  flex-wrap:wrap;
-  gap:12px;
-  margin-top:28px;
-}
+    .actions{
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+      margin-top:28px;
+    }
 
-.btn{
-  border:none;
-  border-radius:999px;
-  padding:14px 22px;
-  font:inherit;
-  cursor:pointer;
-}
+    .btn{
+      border:none;
+      border-radius:999px;
+      padding:14px 22px;
+      font:inherit;
+      cursor:pointer;
+      text-decoration:none;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      transition:transform .18s ease, opacity .18s ease;
+    }
 
-.btn.primary{
-  background:#fff;
-  color:#000;
-}
+    .btn:hover{transform:translateY(-2px)}
+    .btn.primary{background:#fff;color:#000}
+    .btn.secondary{background:rgba(255,255,255,.06);color:#fff;border:1px solid var(--line)}
 
-.btn.secondary{
-  background:rgba(255,255,255,.06);
-  color:#fff;
-  border:1px solid var(--line);
-}
+    .panel{
+      border-radius:var(--radius);
+      border:1px solid var(--line);
+      background:var(--panel);
+      backdrop-filter:blur(18px);
+      box-shadow:var(--shadow);
+    }
 
-.panel{
-  border-radius:var(--radius);
-  border:1px solid var(--line);
-  background:var(--panel);
-  backdrop-filter:blur(18px);
-  box-shadow:var(--shadow);
-}
+    .heroPanel{padding:18px}
+    .grid4{
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:14px;
+    }
 
-.heroPanel{padding:18px}
-.grid4{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:14px;
-}
+    .card{
+      padding:18px;
+      border-radius:18px;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.03);
+    }
 
-.card{
-  padding:18px;
-  border-radius:18px;
-  border:1px solid var(--line);
-  background:rgba(255,255,255,.03);
-}
+    .card .value{
+      font-size:32px;
+      font-weight:700;
+      letter-spacing:-.04em;
+    }
 
-.card .value{
-  font-size:32px;
-  font-weight:700;
-  letter-spacing:-.04em;
-}
+    .card .label{
+      margin-top:6px;
+      font-size:14px;
+      color:var(--muted);
+    }
 
-.card .label{
-  margin-top:6px;
-  font-size:14px;
-  color:var(--muted);
-}
+    .section{margin-top:84px}
 
-.section{margin-top:78px}
+    .sectionHead{
+      display:flex;
+      justify-content:space-between;
+      gap:28px;
+      align-items:end;
+      margin-bottom:18px;
+    }
 
-.sectionHead{
-  display:flex;
-  justify-content:space-between;
-  gap:28px;
-  align-items:end;
-  margin-bottom:18px;
-}
+    .sectionTitle{
+      margin:8px 0 0;
+      font-size:clamp(2rem,5vw,4rem);
+      line-height:1.02;
+      letter-spacing:-.04em;
+    }
 
-.sectionTitle{
-  margin:8px 0 0;
-  font-size:clamp(2rem,5vw,4rem);
-  line-height:1.02;
-  letter-spacing:-.04em;
-}
+    .sectionCopy{
+      max-width:690px;
+      color:var(--muted);
+      line-height:1.8;
+      font-size:15px;
+    }
 
-.sectionCopy{
-  max-width:620px;
-  color:var(--muted);
-  line-height:1.75;
-}
+    .copyBlock{
+      padding:24px;
+      line-height:1.8;
+      color:var(--muted);
+      font-size:15px;
+    }
 
-.toolbar{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:14px;
-  margin-top:20px;
-}
+    .copyBlock p{margin:0 0 18px}
+    .copyBlock p:last-child{margin-bottom:0}
 
-.toolbar .panel{padding:18px}
+    .toolbar{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:14px;
+      margin-top:20px;
+    }
 
-select{
-  width:100%;
-  padding:12px 14px;
-  border-radius:14px;
-  border:1px solid var(--line);
-  background:#101925;
-  color:#fff;
-  font:inherit;
-}
+    .toolbar .panel{padding:18px}
+    select{
+      width:100%;
+      padding:12px 14px;
+      border-radius:14px;
+      border:1px solid var(--line);
+      background:#101925;
+      color:#fff;
+      font:inherit;
+    }
 
-.resultsGrid{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:14px;
-  margin-top:16px;
-}
+    .resultsGrid{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:14px;
+      margin-top:16px;
+    }
 
-.mini{
-  padding:18px;
-  border-radius:18px;
-  border:1px solid var(--line);
-  background:rgba(255,255,255,.03);
-}
+    .mini{
+      padding:18px;
+      border-radius:18px;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.03);
+    }
 
-.mini .k{
-  font-size:11px;
-  color:var(--soft);
-  letter-spacing:.14em;
-  text-transform:uppercase;
-}
+    .mini .k{
+      font-size:11px;
+      color:var(--soft);
+      letter-spacing:.14em;
+      text-transform:uppercase;
+    }
 
-.mini .v{
-  margin-top:10px;
-  font-size:30px;
-  font-weight:700;
-}
+    .mini .v{
+      margin-top:10px;
+      font-size:30px;
+      font-weight:700;
+      letter-spacing:-.04em;
+    }
 
-.mini .s{
-  margin-top:8px;
-  font-size:13px;
-  color:var(--muted);
-}
+    .mini .s{
+      margin-top:8px;
+      font-size:13px;
+      color:var(--muted);
+      line-height:1.5;
+    }
 
-.notice{
-  margin-top:14px;
-  padding:14px 16px;
-  border-radius:16px;
-  border:1px solid rgba(255,142,142,.3);
-  background:rgba(255,142,142,.08);
-  color:#ffdede;
-  font-size:14px;
-}
+    .notice{
+      margin-top:14px;
+      padding:14px 16px;
+      border-radius:16px;
+      border:1px solid rgba(255,210,140,.28);
+      background:rgba(255,210,140,.08);
+      color:#ffe5b7;
+      font-size:14px;
+      line-height:1.6;
+    }
 
-.tableWrap{
-  margin-top:16px;
-  overflow:auto;
-  border-radius:22px;
-  border:1px solid var(--line);
-}
+    .tableWrap{
+      margin-top:16px;
+      overflow:auto;
+      border-radius:22px;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.03);
+    }
 
-table{
-  width:100%;
-  border-collapse:collapse;
-  min-width:760px;
-}
+    table{
+      width:100%;
+      border-collapse:collapse;
+      min-width:760px;
+    }
 
-th,td{
-  padding:14px 16px;
-  border-bottom:1px solid rgba(255,255,255,.05);
-  text-align:left;
-  font-size:14px;
-}
+    th,td{
+      padding:14px 16px;
+      border-bottom:1px solid rgba(255,255,255,.05);
+      text-align:left;
+      font-size:14px;
+      vertical-align:top;
+    }
 
-th{
-  background:rgba(255,255,255,.03);
-  color:var(--soft);
-  text-transform:uppercase;
-  letter-spacing:.12em;
-  font-size:11px;
-}
+    th{
+      background:rgba(255,255,255,.03);
+      color:var(--soft);
+      text-transform:uppercase;
+      letter-spacing:.12em;
+      font-size:11px;
+    }
 
-.footer{
-  margin:90px 0 40px;
-  color:var(--soft);
-  font-size:13px;
-}
+    .split2{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:16px;
+    }
 
-@media (max-width:1100px){
-  .hero,.sectionHead,.toolbar{grid-template-columns:1fr;display:grid}
-  .resultsGrid{grid-template-columns:repeat(2,1fr)}
-  .nav{display:none}
-}
+    .list{
+      display:grid;
+      gap:10px;
+    }
 
-@media (max-width:700px){
-  .resultsGrid,.grid4{grid-template-columns:1fr}
-  .wrap{padding:18px}
-}
-</style>
+    .listItem{
+      display:flex;
+      justify-content:space-between;
+      gap:12px;
+      padding:14px 16px;
+      border-radius:18px;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.03);
+    }
+
+    .mapWrap{
+      margin-top:18px;
+      border-radius:24px;
+      overflow:hidden;
+      border:1px solid var(--line);
+      background:#081018;
+      box-shadow:var(--shadow);
+    }
+
+    .mapWrap iframe{
+      width:100%;
+      height:720px;
+      border:0;
+      display:block;
+      background:#081018;
+    }
+
+    .footer{
+      margin:90px 0 20px;
+      padding-top:26px;
+      border-top:1px solid var(--line);
+      color:var(--soft);
+      font-size:13px;
+      display:flex;
+      justify-content:space-between;
+      gap:20px;
+      flex-wrap:wrap;
+    }
+
+    .footer a{
+      color:inherit;
+      text-decoration:none;
+    }
+
+    @media (max-width:1100px){
+      .hero,.sectionHead,.toolbar,.split2{grid-template-columns:1fr;display:grid}
+      .resultsGrid{grid-template-columns:repeat(2,1fr)}
+      .nav{display:none}
+    }
+
+    @media (max-width:700px){
+      .resultsGrid,.grid4{grid-template-columns:1fr}
+      .wrap{padding:18px 16px 48px}
+      .mapWrap iframe{height:520px}
+    }
+  </style>
 </head>
 
 <body>
-
 <div class="wrap">
 
-<header class="topbar">
-  <div>
-    <div class="eyebrow">CAONGD · Informe interactivo profesional</div>
-    <h1>Sistema visual del trabajo de las ONGD andaluzas</h1>
-  </div>
+  <header class="topbar">
+    <div>
+      <div class="eyebrow">CAONGD · Informe interactivo profesional</div>
+      <h1>Sistema visual del trabajo de las ONGD andaluzas</h1>
+    </div>
 
-  <nav class="nav">
-    <a href="#inicio">Inicio</a>
-    <a href="#explorador">Explorador</a>
-    <a href="#social">Base social</a>
-  </nav>
-</header>
+    <nav class="nav">
+      <a href="#inicio">Inicio</a>
+      <a href="https://informe.caongd.org/trabajo-en-andalucia/" target="_blank" rel="noopener noreferrer">Trabajo en Andalucía</a>
+      <a href="#otros-paises">Trabajo en otros países</a>
+      <a href="#explorador">Explorador</a>
+      <a href="#mapa-andalucia">Mapa</a>
+    </nav>
+  </header>
 
-<section class="hero" id="inicio">
+  <section class="hero" id="inicio">
+    <div>
+      <div class="pill">Informe 2023 · motor automático · versión institucional</div>
+      <h2>Un informe capaz de cruzar variables, comparar y escalar.</h2>
+      <p class="lead">
+        Visualización avanzada del informe CAONGD 2023 con una estructura clara, narrativa editorial,
+        lectura ejecutiva y posibilidad de regeneración anual mediante un único archivo de datos.
+      </p>
+      <div class="actions">
+        <a class="btn primary" href="#andalucia">Abrir Andalucía</a>
+        <a class="btn secondary" href="#otros-paises">Ir a otros países</a>
+      </div>
+    </div>
 
-<div>
-  <div class="pill">Informe 2023 · motor automático · versión institucional</div>
+    <div class="panel heroPanel">
+      <div class="grid4" id="summaryCards"></div>
+    </div>
+  </section>
 
-  <h2>
-    Un informe capaz de cruzar variables, comparar y escalar.
-  </h2>
+  <section class="section" id="andalucia">
+    <div class="sectionHead">
+      <div>
+        <div class="eyebrow" id="andaluciaEyebrow"></div>
+        <h3 class="sectionTitle" id="andaluciaTitle"></h3>
+      </div>
+      <p class="sectionCopy" id="andaluciaSummary"></p>
+    </div>
 
-  <p class="lead">
-    Visualización avanzada del informe CAONGD 2023 con un sistema basado en datos.
-    Cada nuevo año puede publicarse actualizando únicamente el archivo JSON.
-  </p>
+    <div class="panel copyBlock" id="andaluciaToolBlock"></div>
 
-  <div class="actions">
-    <button class="btn primary" onclick="go('#explorador')">Abrir explorador</button>
-    <button class="btn secondary" onclick="go('#social')">Ver base social</button>
-  </div>
-</div>
+    <div class="resultsGrid" id="andaluciaHeadlineCards"></div>
+  </section>
 
-<div class="panel heroPanel">
-  <div class="grid4" id="summaryCards"></div>
-</div>
+  <section class="section">
+    <div class="sectionHead">
+      <div>
+        <div class="eyebrow">A grandes cifras</div>
+        <h3 class="sectionTitle">Datos globales por áreas de trabajo en Andalucía</h3>
+      </div>
+      <p class="sectionCopy">
+        El aumento de la inversión en Andalucía respecto al informe anterior está condicionado por la incorporación
+        de la acción social de Cruz Roja Andalucía. La inversión más elevada se concentra en acción social,
+        seguida de educación para el desarrollo.
+      </p>
+    </div>
 
-</section>
+    <div class="resultsGrid" id="areaCards"></div>
 
-<section class="section" id="explorador">
+    <div class="tableWrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Área</th>
+            <th>Número de ONGD</th>
+            <th>Número de proyectos</th>
+            <th>Personas participantes</th>
+            <th>Hombres</th>
+            <th>Mujeres</th>
+            <th>Inversión</th>
+          </tr>
+        </thead>
+        <tbody id="areasTableBody"></tbody>
+      </table>
+    </div>
+  </section>
 
-<div class="sectionHead">
-  <div>
-    <div class="eyebrow">Explorador dinámico</div>
-    <h3 class="sectionTitle">El usuario puede cambiar la lectura del informe</h3>
-  </div>
+  <section class="section">
+    <div class="sectionHead">
+      <div>
+        <div class="eyebrow">Territorio</div>
+        <h3 class="sectionTitle">Datos globales por provincias</h3>
+      </div>
+      <p class="sectionCopy">
+        El informe aclara que no puede hablarse estrictamente de inversión por provincia,
+        porque se suman los presupuestos globales de los proyectos al margen del número de lugares
+        donde se desarrollan.
+      </p>
+    </div>
 
-  <p class="sectionCopy">
-    Selecciona una vista y una métrica. El sistema recompone tarjetas,
-    rankings y tabla comparativa automáticamente.
-  </p>
-</div>
+    <div class="notice">
+      Aclaración metodológica: la “inversión por provincia” no representa una asignación financiera exclusiva por territorio,
+      sino el cómputo global de proyectos con actividad en cada provincia.
+    </div>
 
-<div class="toolbar">
-  <div class="panel">
-    <div class="eyebrow">Vista</div>
-    <select id="viewSelect"></select>
-  </div>
+    <div class="tableWrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Provincia</th>
+            <th>Número de ONGD</th>
+            <th>Número de proyectos</th>
+            <th>Inversión (*)</th>
+          </tr>
+        </thead>
+        <tbody id="provinceTableBody"></tbody>
+      </table>
+    </div>
+  </section>
 
-  <div class="panel">
-    <div class="eyebrow">Métrica</div>
-    <select id="metricSelect"></select>
-  </div>
-</div>
+  <section class="section">
+    <div class="sectionHead">
+      <div>
+        <div class="eyebrow">Agenda 2030</div>
+        <h3 class="sectionTitle">Datos globales de los ODS en los proyectos en Andalucía</h3>
+      </div>
+      <p class="sectionCopy">
+        En 2023 destacan por inversión total el ODS 10, el ODS 5 y el ODS 1. Por número de proyectos,
+        sobresalen especialmente los vinculados al ODS 5, ODS 10 y ODS 4.
+      </p>
+    </div>
 
-<div id="warningBox"></div>
+    <div class="resultsGrid" id="odsCards"></div>
 
-<div class="resultsGrid" id="dynamicCards"></div>
+    <div class="tableWrap">
+      <table>
+        <thead>
+          <tr>
+            <th>ODS</th>
+            <th>Número de proyectos</th>
+            <th>Inversión</th>
+          </tr>
+        </thead>
+        <tbody id="odsTableBody"></tbody>
+      </table>
+    </div>
+  </section>
 
-<div class="tableWrap">
-<table>
-<thead id="thead"></thead>
-<tbody id="tbody"></tbody>
-</table>
-</div>
+  <section class="section">
+    <div class="sectionHead">
+      <div>
+        <div class="eyebrow">Financiación</div>
+        <h3 class="sectionTitle">Principales entidades financieras</h3>
+      </div>
+      <p class="sectionCopy">
+        Destaca el bloque de proyectos que se realizó en parte o totalmente con fondos propios de las ONGD,
+        seguido por el papel de la AACID, ayuntamientos, diputaciones, Junta de Andalucía, Gobierno de España
+        y Unión Europea.
+      </p>
+    </div>
 
-</section>
+    <div class="split2">
+      <div class="panel copyBlock">
+        <p>
+          Los fondos propios sostuvieron 235 proyectos, el 48% del total. En educación para el desarrollo
+          sobresale la AACID, seguida por ayuntamientos como Córdoba y Málaga. En acción social destacan,
+          además, convocatorias vinculadas al IRPF en Andalucía.
+        </p>
+      </div>
+      <div class="panel copyBlock">
+        <div class="list" id="fundingHighlights"></div>
+      </div>
+    </div>
 
-<section class="section" id="social">
+    <div class="tableWrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Financiadora</th>
+            <th>Acción social</th>
+            <th>EpD</th>
+            <th>Formación</th>
+            <th>Investigación</th>
+            <th>Total</th>
+          </tr>
+        </thead>
+        <tbody id="fundingTableBody"></tbody>
+      </table>
+    </div>
+  </section>
 
-<div class="sectionHead">
-  <div>
-    <div class="eyebrow">Base social</div>
-    <h3 class="sectionTitle">Legitimidad social y estructura humana</h3>
-  </div>
+  <section class="section">
+    <div class="sectionHead">
+      <div>
+        <div class="eyebrow">Implantación y base social</div>
+        <h3 class="sectionTitle">Las ONGD en el territorio andaluz</h3>
+      </div>
+      <p class="sectionCopy">
+        La implantación territorial es amplia pero desigual. La base social reúne a cientos de miles
+        de personas socias, voluntarias, contratadas, expatriadas y miembros de juntas directivas o patronatos.
+      </p>
+    </div>
 
-  <p class="sectionCopy">
-    Indicadores sobre personas socias, voluntariado, personal contratado,
-    expatriado y órganos de gobierno.
-  </p>
-</div>
+    <div class="panel copyBlock">
+      <p>
+        En 2023, las entidades participantes contaban con 398.404 personas socias, 47.911 voluntarias en Andalucía,
+        5.173 personas contratadas, 273 expatriadas y 1.055 integrantes de juntas directivas o patronatos.
+        En todos los grupos analizados la presencia de mujeres es mayoritaria.
+      </p>
+    </div>
 
-<div class="resultsGrid" id="socialCards"></div>
+    <div class="resultsGrid" id="socialCards"></div>
+  </section>
 
-</section>
+  <section class="section" id="mapa-andalucia">
+    <div class="sectionHead">
+      <div>
+        <div class="eyebrow">Mapa</div>
+        <h3 class="sectionTitle">Mapa de proyectos ejecutados en Andalucía</h3>
+      </div>
+      <p class="sectionCopy">
+        El sitio de referencia incorpora una página específica de mapa de proyectos ejecutados en Andalucía,
+        separada del informe narrativo.
+      </p>
+    </div>
 
-<div class="footer">
-CAONGD · Informe interactivo 2023 · Arquitectura lista para actualización anual
-</div>
+    <div class="actions" style="margin-top:0">
+      <a class="btn secondary" href="https://informe.caongd.org/proyectos-ejecutados-en-andalucia/" target="_blank" rel="noopener noreferrer">
+        Abrir mapa en ventana nueva
+      </a>
+    </div>
+
+    <div class="mapWrap">
+      <iframe
+        src="https://informe.caongd.org/proyectos-ejecutados-en-andalucia/"
+        title="Mapa de proyectos ejecutados en Andalucía"
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade">
+      </iframe>
+    </div>
+  </section>
+
+  <section class="section" id="otros-paises">
+    <div class="sectionHead">
+      <div>
+        <div class="eyebrow">Trabajo en otros países</div>
+        <h3 class="sectionTitle">Sección preparada para el bloque internacional</h3>
+      </div>
+      <p class="sectionCopy">
+        Este bloque queda listo para conectar con la parte internacional del informe interactivo.
+      </p>
+    </div>
+
+    <div class="panel copyBlock">
+      <p>
+        Aquí puedes usar la información de <code>international_work</code> del JSON y mantener la misma lógica:
+        resumen ejecutivo, áreas geográficas, países con mayor inversión, ONGD destacadas y mapa de proyectos.
+      </p>
+    </div>
+  </section>
+
+  <section class="section" id="explorador">
+    <div class="sectionHead">
+      <div>
+        <div class="eyebrow">Explorador dinámico</div>
+        <h3 class="sectionTitle">El usuario puede cambiar la lectura del informe</h3>
+      </div>
+      <p class="sectionCopy">
+        Selecciona una vista y una métrica. El sistema recompone tarjetas y tabla comparativa automáticamente.
+      </p>
+    </div>
+
+    <div class="toolbar">
+      <div class="panel">
+        <div class="eyebrow">Vista</div>
+        <select id="viewSelect"></select>
+      </div>
+
+      <div class="panel">
+        <div class="eyebrow">Métrica</div>
+        <select id="metricSelect"></select>
+      </div>
+    </div>
+
+    <div id="warningBox"></div>
+    <div class="resultsGrid" id="dynamicCards"></div>
+
+    <div class="tableWrap">
+      <table>
+        <thead id="thead"></thead>
+        <tbody id="tbody"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div>
+      Coordinadora Andaluza de Organizaciones No Gubernamentales para el Desarrollo · C/ León XIII 9, bajo derecha. 41009, Sevilla · coordinadora.andaluza@caongd.org · 954 915 249
+    </div>
+    <div>
+      <a href="https://caongd.org/aviso-legal/" target="_blank" rel="noopener noreferrer">Aviso legal</a> ·
+      <a href="https://caongd.org/politica-de-privacidad/" target="_blank" rel="noopener noreferrer">Política de privacidad</a> ·
+      <a href="https://caongd.org/politica-de-cookies/" target="_blank" rel="noopener noreferrer">Cookies</a>
+    </div>
+  </footer>
 
 </div>
 
@@ -414,8 +684,9 @@ function fmt(n){
   return new Intl.NumberFormat("es-ES").format(n);
 }
 
-function go(id){
-  document.querySelector(id).scrollIntoView({behavior:"smooth"});
+function money(n){
+  if(n===null || n===undefined) return "—";
+  return new Intl.NumberFormat("es-ES").format(n) + " €";
 }
 
 async function loadData(){
@@ -437,36 +708,66 @@ const metricLabels = {
 const views = {
   international_areas:{
     label:"Trabajo internacional · áreas geográficas",
-    rows:d => d.international_work.geographic_areas
+    rows:d => d.international_work.geographic_areas.map(x => ({
+      name:x.name,
+      countries:x.countries,
+      ongd:x.ongd,
+      projects:x.projects,
+      people:x.people,
+      investment_eur:x.investment_eur
+    }))
   },
 
   top_countries:{
     label:"Trabajo internacional · top países",
-    rows:d => d.international_work.top_countries_investment
+    rows:d => d.international_work.top_countries_investment.map(x => ({
+      name:x.name,
+      projects:x.projects,
+      people:x.people,
+      investment_eur:x.investment_eur
+    }))
   },
 
   andalusia_areas:{
     label:"Andalucía · áreas de trabajo",
-    rows:d => d.andalusia_work.areas
+    rows:d => d.andalusia_work.areas.map(x => ({
+      name:x.name,
+      ongd:x.ongd,
+      projects:x.projects,
+      people:x.people,
+      men:x.men,
+      women:x.women,
+      investment_eur:x.investment_eur
+    }))
   },
 
   provinces:{
     label:"Andalucía · provincias",
-    rows:d => d.andalusia_work.provinces
+    rows:d => d.andalusia_work.provinces.map(x => ({
+      name:x.name,
+      ongd:x.ongd,
+      projects:x.projects,
+      investment_eur:x.investment_eur
+    }))
   },
 
   epd:{
     label:"Andalucía · EpD temáticas",
-    rows:d => d.andalusia_work.epd_thematics
+    rows:d => d.andalusia_work.epd_thematics.map(x => ({
+      name:x.name,
+      ongd:x.ongd,
+      projects:x.projects,
+      investment_eur:x.investment_eur
+    }))
   }
 };
 
 function buildSummary(d){
   const arr = [
-    ["60", "Países y territorios"],
-    [fmt(d.international_work.projects), "Proyectos internacionales"],
+    [fmt(d.andalusia_work.ongd), "ONGD activas en Andalucía"],
     [fmt(d.andalusia_work.projects), "Proyectos en Andalucía"],
-    [fmt(d.social_base.members), "Personas socias"]
+    [fmt(d.andalusia_work.people_total), "Personas participantes"],
+    [money(d.andalusia_work.investment_eur), "Inversión global"]
   ];
 
   summaryCards.innerHTML = arr.map(x=>`
@@ -477,15 +778,136 @@ function buildSummary(d){
   `).join("");
 }
 
+function buildAndaluciaTool(d){
+  const t = d.andalusia_work.tool_intro;
+  andaluciaEyebrow.textContent = t.eyebrow;
+  andaluciaTitle.textContent = t.title;
+  andaluciaSummary.textContent = t.summary;
+  andaluciaToolBlock.innerHTML = t.description.map(p => `<p>${p}</p>`).join("");
+}
+
+function buildHeadlineCards(d){
+  const cards = [
+    ["A grandes cifras", fmt(d.andalusia_work.projects), "proyectos activos en las ocho provincias"],
+    ["Participación", fmt(d.andalusia_work.people_total), "personas · 52,5% mujeres"],
+    ["Cobertura", fmt(d.andalusia_work.ongd), "ONGD con actividad en Andalucía"],
+    ["Inversión", money(d.andalusia_work.investment_eur), "inversión global 2023"]
+  ];
+
+  andaluciaHeadlineCards.innerHTML = cards.map(c => `
+    <div class="mini">
+      <div class="k">${c[0]}</div>
+      <div class="v">${c[1]}</div>
+      <div class="s">${c[2]}</div>
+    </div>
+  `).join("");
+}
+
+function buildAreas(d){
+  areaCards.innerHTML = d.andalusia_work.areas.map(a => `
+    <div class="mini">
+      <div class="k">${a.name}</div>
+      <div class="v">${fmt(a.projects)}</div>
+      <div class="s">${fmt(a.people)} personas · ${money(a.investment_eur)}</div>
+    </div>
+  `).join("");
+
+  areasTableBody.innerHTML = d.andalusia_work.areas.map(a => `
+    <tr>
+      <td>${a.name}</td>
+      <td>${fmt(a.ongd)}</td>
+      <td>${fmt(a.projects)}</td>
+      <td>${fmt(a.people)}</td>
+      <td>${fmt(a.men)}</td>
+      <td>${fmt(a.women)}</td>
+      <td>${money(a.investment_eur)}</td>
+    </tr>
+  `).join("") + `
+    <tr>
+      <td><strong>TOTAL</strong></td>
+      <td><strong>${fmt(d.andalusia_work.ongd)}</strong></td>
+      <td><strong>${fmt(d.andalusia_work.projects)}</strong></td>
+      <td><strong>${fmt(d.andalusia_work.people_total)}</strong></td>
+      <td><strong>${fmt(d.andalusia_work.men)}</strong></td>
+      <td><strong>${fmt(d.andalusia_work.women)}</strong></td>
+      <td><strong>${money(d.andalusia_work.investment_eur)}</strong></td>
+    </tr>
+  `;
+}
+
+function buildProvinces(d){
+  provinceTableBody.innerHTML = d.andalusia_work.province_source_table.map(p => `
+    <tr>
+      <td>${p.name}</td>
+      <td>${fmt(p.ongd)}</td>
+      <td>${fmt(p.projects)}</td>
+      <td>${money(p.investment_eur)}</td>
+    </tr>
+  `).join("") + `
+    <tr>
+      <td><strong>TOTAL</strong></td>
+      <td><strong>${fmt(d.andalusia_work.province_source_total.ongd)}</strong></td>
+      <td><strong>${fmt(d.andalusia_work.province_source_total.projects)}</strong></td>
+      <td><strong>${money(d.andalusia_work.province_source_total.investment_eur)}</strong></td>
+    </tr>
+  `;
+}
+
+function buildODS(d){
+  const top = [...d.andalusia_work.ods]
+    .sort((a,b)=>b.investment_eur-a.investment_eur)
+    .slice(0,4);
+
+  odsCards.innerHTML = top.map(x => `
+    <div class="mini">
+      <div class="k">${x.name}</div>
+      <div class="v">${fmt(x.projects)}</div>
+      <div class="s">${money(x.investment_eur)}</div>
+    </div>
+  `).join("");
+
+  odsTableBody.innerHTML = d.andalusia_work.ods.map(x => `
+    <tr>
+      <td>${x.name}</td>
+      <td>${fmt(x.projects)}</td>
+      <td>${money(x.investment_eur)}</td>
+    </tr>
+  `).join("");
+}
+
+function buildFunding(d){
+  const highlights = [...d.andalusia_work.funding]
+    .sort((a,b)=>b.total-a.total)
+    .slice(0,6);
+
+  fundingHighlights.innerHTML = highlights.map(x => `
+    <div class="listItem">
+      <div><strong>${x.name}</strong></div>
+      <div>${fmt(x.total)} proyectos</div>
+    </div>
+  `).join("");
+
+  fundingTableBody.innerHTML = d.andalusia_work.funding.map(r => `
+    <tr>
+      <td>${r.name}</td>
+      <td>${r.social_action || ""}</td>
+      <td>${r.epd || ""}</td>
+      <td>${r.training || ""}</td>
+      <td>${r.research || ""}</td>
+      <td>${r.total || ""}</td>
+    </tr>
+  `).join("");
+}
+
 function buildSocial(d){
-  const s=d.social_base;
+  const s = d.social_base;
 
   const rows = [
     ["Personas socias", fmt(s.members), s.members_women_pct + "% mujeres"],
-    ["Voluntariado", fmt(s.volunteers_andalusia), s.volunteers_women_pct + "% mujeres"],
+    ["Voluntariado Andalucía", fmt(s.volunteers_andalusia), s.volunteers_women_pct + "% mujeres"],
     ["Personal contratado", fmt(s.staff_andalusia), s.staff_women_pct + "% mujeres"],
     ["Personal expatriado", fmt(s.expatriates), s.expatriates_women_pct + "% mujeres"],
-    ["Juntas / patronatos", fmt(s.boards_total), s.boards_women_pct + "% mujeres"]
+    ["Juntas y patronatos", fmt(s.boards_total), s.boards_women_pct + "% mujeres"]
   ];
 
   socialCards.innerHTML = rows.map(r=>`
@@ -498,7 +920,6 @@ function buildSocial(d){
 }
 
 function setupExplorer(data){
-
   Object.entries(views).forEach(([k,v])=>{
     const o=document.createElement("option");
     o.value=k;
@@ -517,14 +938,11 @@ function setupExplorer(data){
   metricSelect.value="projects";
 
   function render(){
-
     const key=viewSelect.value;
     const metric=metricSelect.value;
-
     let rows=views[key].rows(data).map(x=>({...x}));
 
     rows=rows.filter(r=>r[metric]!==undefined && r[metric]!==null);
-
     rows.sort((a,b)=>(b[metric]||0)-(a[metric]||0));
 
     warningBox.innerHTML="";
@@ -532,8 +950,8 @@ function setupExplorer(data){
     if(key==="provinces"){
       warningBox.innerHTML=`
         <div class="notice">
-          Datos provinciales financieros pendientes de validación oficial.
-          Se muestran únicamente métricas verificadas.
+          En esta vista se recomienda interpretar la inversión como cómputo global de proyectos con actividad en cada provincia,
+          no como asignación exclusiva por territorio.
         </div>
       `;
     }
@@ -545,7 +963,7 @@ function setupExplorer(data){
         <div class="k">#${i+1} · ${r.name}</div>
         <div class="v">${
           metric==="investment_eur"
-          ? fmt(r[metric])+" €"
+          ? money(r[metric]).replace(" €","")
           : fmt(r[metric])
         }</div>
         <div class="s">
@@ -571,7 +989,7 @@ function setupExplorer(data){
           <td>
           ${
             c==="investment_eur" && r[c]!=null
-            ? fmt(r[c])+" €"
+            ? money(r[c])
             : (typeof r[c]==="number" ? fmt(r[c]) : (r[c] ?? "—"))
           }
           </td>
@@ -582,7 +1000,6 @@ function setupExplorer(data){
 
   viewSelect.onchange=render;
   metricSelect.onchange=render;
-
   render();
 }
 
@@ -590,6 +1007,12 @@ async function init(){
   try{
     const data = await loadData();
     buildSummary(data);
+    buildAndaluciaTool(data);
+    buildHeadlineCards(data);
+    buildAreas(data);
+    buildProvinces(data);
+    buildODS(data);
+    buildFunding(data);
     buildSocial(data);
     setupExplorer(data);
   }catch(e){
@@ -600,6 +1023,5 @@ async function init(){
 
 init();
 </script>
-
 </body>
 </html>
