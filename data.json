@@ -2,7 +2,7 @@
   "meta": {
     "project": "CAONGD Informe Interactivo Profesional",
     "year": 2023,
-    "version": "2.2.0",
+    "version": "2.3.0",
     "language": "es",
     "updated_at": "2026-04-15",
     "sources": [
@@ -190,6 +190,15 @@
     "women": 920621,
     "women_pct": 52.5,
     "investment_eur": 161218585,
+    "tool_intro": {
+      "eyebrow": "Trabajo en Andalucía",
+      "title": "Informe sobre el trabajo de las ONGD andaluzas en Andalucía",
+      "summary": "Este módulo activa el sistema de publicación automática del informe para Andalucía y permite regenerar, explorar y visualizar de forma dinámica indicadores, tablas, rankings y bloques temáticos a partir de datos estructurados.",
+      "description": [
+        "La herramienta organiza la información del trabajo de las ONGD andaluzas en Andalucía en un entorno visual único, preparado para actualizarse anualmente sin rehacer la web.",
+        "A partir de una base de datos estructurada, el sistema recompone automáticamente cifras clave, áreas de trabajo, lectura territorial, ODS, entidades financiadoras e indicadores de implantación y base social."
+      ]
+    },
     "validation": {
       "areas_sum": {
         "projects": 481,
@@ -208,6 +217,8 @@
         "ongd": 32,
         "projects": 149,
         "people": 664460,
+        "men": 311542,
+        "women": 352918,
         "investment_eur": 144266641
       },
       {
@@ -215,6 +226,8 @@
         "ongd": 52,
         "projects": 263,
         "people": 608550,
+        "men": 260912,
+        "women": 347638,
         "investment_eur": 12352097
       },
       {
@@ -222,6 +235,8 @@
         "ongd": 20,
         "projects": 56,
         "people": 415819,
+        "men": 231772,
+        "women": 184047,
         "investment_eur": 3968021
       },
       {
@@ -229,6 +244,8 @@
         "ongd": 10,
         "projects": 13,
         "people": 64924,
+        "men": 28906,
+        "women": 36018,
         "investment_eur": 631826
       }
     ],
@@ -290,6 +307,61 @@
         "data_quality": "pendiente_validacion"
       }
     ],
+    "province_source_table": [
+      {
+        "name": "Almería",
+        "ongd": 28,
+        "projects": 134,
+        "investment_eur": 127335836
+      },
+      {
+        "name": "Cádiz",
+        "ongd": 31,
+        "projects": 129,
+        "investment_eur": 128658274
+      },
+      {
+        "name": "Córdoba",
+        "ongd": 37,
+        "projects": 212,
+        "investment_eur": 147512175
+      },
+      {
+        "name": "Granada",
+        "ongd": 41,
+        "projects": 180,
+        "investment_eur": 135860286
+      },
+      {
+        "name": "Huelva",
+        "ongd": 26,
+        "projects": 103,
+        "investment_eur": 138167794
+      },
+      {
+        "name": "Jaén",
+        "ongd": 25,
+        "projects": 75,
+        "investment_eur": 125251673
+      },
+      {
+        "name": "Málaga",
+        "ongd": 46,
+        "projects": 196,
+        "investment_eur": 132455109
+      },
+      {
+        "name": "Sevilla",
+        "ongd": 47,
+        "projects": 234,
+        "investment_eur": 148857849
+      }
+    ],
+    "province_source_total": {
+      "ongd": 64,
+      "projects": 481,
+      "investment_eur": 163524118
+    },
     "epd_thematics": [
       {
         "name": "Feminismos y equidad de género",
@@ -321,6 +393,49 @@
         "projects": 105,
         "investment_eur": 5156417
       }
+    ],
+    "ods": [
+      { "name": "ODS 1", "projects": 147, "investment_eur": 123046651 },
+      { "name": "ODS 2", "projects": 79, "investment_eur": 5385241 },
+      { "name": "ODS 3", "projects": 145, "investment_eur": 28457510 },
+      { "name": "ODS 4", "projects": 216, "investment_eur": 27883869 },
+      { "name": "ODS 5", "projects": 323, "investment_eur": 131986025 },
+      { "name": "ODS 6", "projects": 58, "investment_eur": 2726902 },
+      { "name": "ODS 7", "projects": 18, "investment_eur": 3307473 },
+      { "name": "ODS 8", "projects": 99, "investment_eur": 34394833 },
+      { "name": "ODS 9", "projects": 5, "investment_eur": 2388874 },
+      { "name": "ODS 10", "projects": 221, "investment_eur": 132485912 },
+      { "name": "ODS 11", "projects": 68, "investment_eur": 103507952 },
+      { "name": "ODS 12", "projects": 100, "investment_eur": 4397580 },
+      { "name": "ODS 13", "projects": 109, "investment_eur": 5182927 },
+      { "name": "ODS 14", "projects": 8, "investment_eur": 3080668 },
+      { "name": "ODS 15", "projects": 16, "investment_eur": 3203888 },
+      { "name": "ODS 16", "projects": 97, "investment_eur": 15724835 },
+      { "name": "ODS 17", "projects": 56, "investment_eur": 13740454 }
+    ],
+    "funding": [
+      { "name": "Ayuntamiento de Almería", "social_action": 4, "epd": 0, "training": 0, "research": 0, "total": 4 },
+      { "name": "Ayuntamiento de Cádiz", "social_action": 3, "epd": 1, "training": 0, "research": 0, "total": 4 },
+      { "name": "Ayuntamiento de Córdoba", "social_action": 5, "epd": 30, "training": 0, "research": 0, "total": 35 },
+      { "name": "Ayuntamiento de Granada", "social_action": 3, "epd": 4, "training": 0, "research": 0, "total": 7 },
+      { "name": "Ayuntamiento de Jaén", "social_action": 2, "epd": 0, "training": 0, "research": 0, "total": 2 },
+      { "name": "Ayuntamiento de Málaga", "social_action": 11, "epd": 17, "training": 0, "research": 0, "total": 28 },
+      { "name": "Ayuntamiento de Sevilla", "social_action": 12, "epd": 10, "training": 1, "research": 0, "total": 23 },
+      { "name": "Diputación de Cádiz", "social_action": 2, "epd": 6, "training": 0, "research": 0, "total": 8 },
+      { "name": "Diputación de Córdoba", "social_action": 4, "epd": 5, "training": 1, "research": 0, "total": 10 },
+      { "name": "Diputación de Granada", "social_action": 3, "epd": 3, "training": 0, "research": 0, "total": 6 },
+      { "name": "Diputación de Huelva", "social_action": 2, "epd": 0, "training": 0, "research": 0, "total": 2 },
+      { "name": "Diputación de Málaga", "social_action": 2, "epd": 8, "training": 0, "research": 0, "total": 10 },
+      { "name": "Diputación de Sevilla", "social_action": 3, "epd": 1, "training": 1, "research": 0, "total": 5 },
+      { "name": "Entidades privadas", "social_action": 24, "epd": 3, "training": 1, "research": 1, "total": 29 },
+      { "name": "Fondos propios", "social_action": 39, "epd": 153, "training": 38, "research": 5, "total": 235 },
+      { "name": "Gobierno de España", "social_action": 13, "epd": 11, "training": 0, "research": 2, "total": 26 },
+      { "name": "Gobierno de España-AECID", "social_action": 1, "epd": 8, "training": 2, "research": 0, "total": 11 },
+      { "name": "Gobierno de España-Convocatoria IRPF", "social_action": 9, "epd": 1, "training": 1, "research": 0, "total": 11 },
+      { "name": "Junta de Andalucía", "social_action": 10, "epd": 0, "training": 0, "research": 0, "total": 10 },
+      { "name": "Junta de Andalucía-AACID", "social_action": 1, "epd": 80, "training": 14, "research": 8, "total": 103 },
+      { "name": "Junta de Andalucía-IRPF", "social_action": 44, "epd": 10, "training": 3, "research": 1, "total": 58 },
+      { "name": "Unión Europea", "social_action": 13, "epd": 3, "training": 2, "research": 0, "total": 18 }
     ]
   },
   "social_base": {
