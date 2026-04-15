@@ -1,343 +1,605 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>CAONGD · Informe interactivo 2023</title>
-  <meta name="description" content="Informe interactivo profesional CAONGD 2023" />
-  <style>
-    :root{
-      --bg:#05070b; --panel:rgba(255,255,255,.05); --panel2:rgba(255,255,255,.08); --line:rgba(255,255,255,.10);
-      --text:rgba(255,255,255,.96); --muted:rgba(255,255,255,.64); --soft:rgba(255,255,255,.42);
-      --accent:#c8ff5a; --accent2:#7de2ff; --shadow:0 24px 80px rgba(0,0,0,.35); --max:1280px;
-    }
-    *{box-sizing:border-box} html{scroll-behavior:smooth}
-    body{margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;background:
-      radial-gradient(circle at 50% -10%, rgba(255,255,255,.12), transparent 26%),
-      radial-gradient(circle at 0% 40%, rgba(125,226,255,.10), transparent 24%),
-      radial-gradient(circle at 100% 90%, rgba(200,255,90,.10), transparent 22%),
-      var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden}
-    .orb{position:fixed;border-radius:999px;filter:blur(64px);opacity:.7;pointer-events:none;animation:drift 9s ease-in-out infinite;z-index:0}
-    .orb.one{width:420px;height:420px;top:-110px;left:50%;transform:translateX(-50%);background:rgba(255,255,255,.09)}
-    .orb.two{width:240px;height:240px;top:420px;left:-80px;background:rgba(125,226,255,.12);animation-delay:1.2s}
-    .orb.three{width:320px;height:320px;right:-60px;bottom:0;background:rgba(200,255,90,.12);animation-delay:2.5s}
-    .wrap{position:relative;z-index:1;max-width:var(--max);margin:0 auto;padding:28px 24px 80px}
-    .topbar{position:sticky;top:16px;z-index:12;display:flex;align-items:center;justify-content:space-between;gap:20px;padding:14px 20px;border:1px solid var(--line);background:rgba(0,0,0,.34);backdrop-filter:blur(18px);border-radius:999px;margin-bottom:40px}
-    .eyebrow{font-size:11px;letter-spacing:.34em;text-transform:uppercase;color:var(--soft);margin:0 0 4px}
-    .topbar h1{margin:0;font-size:14px;font-weight:600;color:rgba(255,255,255,.90)}
-    .nav{display:flex;gap:20px;font-size:14px;color:var(--muted)} .nav a{color:inherit;text-decoration:none}
-    .nav a:hover{color:#fff}
-    .hero{display:grid;grid-template-columns:1.1fr .9fr;gap:28px;align-items:end;padding:20px 0 78px}
-    .pill{display:inline-flex;align-items:center;border:1px solid var(--line);background:rgba(255,255,255,.05);padding:9px 14px;border-radius:999px;font-size:12px;color:var(--muted);backdrop-filter:blur(12px)}
-    .headline{margin:18px 0 0;max-width:860px}
-    .headline-line{display:block;overflow:hidden;font-size:clamp(3rem,7.3vw,5.9rem);line-height:.97;letter-spacing:-.05em;font-weight:680}
-    .headline-line span{display:block;transform:translateY(110%);animation:reveal .9s cubic-bezier(.22,1,.36,1) forwards}
-    .headline-line:nth-child(2) span{animation-delay:.08s}.headline-line:nth-child(3) span{animation-delay:.16s}
-    .lead{max-width:760px;margin:22px 0 0;color:var(--muted);font-size:18px;line-height:1.75;opacity:0;transform:translateY(22px);animation:fadeUp .9s .28s forwards}
-    .actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px;opacity:0;transform:translateY(18px);animation:fadeUp .8s .38s forwards}
-    .btn{appearance:none;border:1px solid transparent;border-radius:999px;padding:14px 20px;font:inherit;cursor:pointer;transition:transform .2s ease,background .2s ease,border-color .2s ease,color .2s ease}
-    .btn.primary{background:#fff;color:#000}.btn.secondary{background:rgba(255,255,255,.05);color:rgba(255,255,255,.82);border-color:rgba(255,255,255,.14)}
-    .btn:hover{transform:translateY(-2px)}
-    .glass{border:1px solid var(--line);background:var(--panel);border-radius:32px;backdrop-filter:blur(18px);box-shadow:var(--shadow)}
-    .heroPanel{padding:16px}.heroPanelInner{padding:20px;border-radius:26px;border:1px solid var(--line);background:linear-gradient(to bottom, rgba(255,255,255,.09), rgba(255,255,255,.03))}
-    .metricGrid{display:grid;gap:14px}.metricCard{padding:18px;border-radius:20px;border:1px solid var(--line);background:rgba(0,0,0,.20);transition:transform .25s ease,background .25s ease}
-    .metricCard:hover{transform:translateY(-4px);background:rgba(255,255,255,.07)} .metricValue{font-size:clamp(2rem,4vw,2.35rem);font-weight:680;letter-spacing:-.04em}
-    .metricLabel{margin-top:6px;font-size:14px;color:rgba(255,255,255,.56)}
-    .section{margin-top:84px}.sectionHead{display:flex;justify-content:space-between;gap:24px;align-items:end;margin-bottom:22px}
-    .sectionTitle{margin:10px 0 0;font-size:clamp(2.1rem,5vw,4rem);letter-spacing:-.045em;line-height:1.02}
-    .sectionCopy{max-width:620px;color:var(--muted);line-height:1.75;font-size:15px}
-    .toolbar{display:grid;grid-template-columns:1.1fr .9fr;gap:16px;margin-top:24px}
-    .toolbar .glass{padding:18px 20px}
-    .field{display:flex;flex-direction:column;gap:8px}
-    .label{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--soft)}
-    select{background:#0d1016;color:#fff;border:1px solid var(--line);border-radius:16px;padding:12px 14px;font:inherit}
-    .resultsGrid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:16px}
-    .mini{padding:18px;border:1px solid var(--line);border-radius:22px;background:rgba(255,255,255,.04)}
-    .mini .k{font-size:12px;color:var(--soft);text-transform:uppercase;letter-spacing:.18em}.mini .v{margin-top:10px;font-size:28px;font-weight:700;letter-spacing:-.04em}.mini .s{margin-top:6px;font-size:13px;color:var(--muted)}
-    .tabbar{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}
-    .tab{padding:10px 14px;border-radius:999px;border:1px solid var(--line);background:rgba(255,255,255,.04);cursor:pointer;color:var(--muted)}
-    .tab.active{background:rgba(255,255,255,.12);color:#fff}
-    .tableWrap{overflow:auto;border:1px solid var(--line);border-radius:24px;background:rgba(255,255,255,.04);margin-top:16px}
-    table{width:100%;border-collapse:collapse;min-width:720px} th,td{padding:14px 16px;border-bottom:1px solid rgba(255,255,255,.06);text-align:left;font-size:14px}
-    th{color:var(--soft);font-weight:600;text-transform:uppercase;letter-spacing:.12em;font-size:11px;background:rgba(255,255,255,.02)}
-    tr:hover td{background:rgba(255,255,255,.02)}
-    .systemGrid{display:grid;grid-template-columns:.88fr 1.12fr;gap:16px}
-    .stackList,.stackGrid,.cta{padding:24px}
-    .stackItem,.badge,.province,.rankingCard{padding:14px 16px;border-radius:18px;border:1px solid var(--line);background:rgba(255,255,255,.04);transition:transform .2s ease,background .2s ease}
-    .stackItem:hover,.badge:hover,.province:hover,.rankingCard:hover{transform:translateY(-4px);background:rgba(255,255,255,.08)}
-    .stackKey{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:14px;color:rgba(255,255,255,.86)}
-    .stackDesc{margin-top:5px;font-size:14px;color:rgba(255,255,255,.50)}
-    .badgeGrid,.rankingGrid{display:grid;gap:12px;grid-template-columns:repeat(4,1fr)}
-    .workflow{margin-top:18px;padding:20px;border-radius:24px;border:1px solid var(--line);background:linear-gradient(to right, rgba(255,255,255,.10), rgba(255,255,255,.03))}
-    .workflowTitle{font-size:11px;letter-spacing:.32em;text-transform:uppercase;color:var(--soft)}
-    .workflow strong{display:block;margin-top:10px;font-size:22px;font-weight:600;color:rgba(255,255,255,.86);letter-spacing:-.03em}
-    .workflow p{margin:8px 0 0;color:var(--muted);line-height:1.75;font-size:14px}
-    .split2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-    .list{display:grid;gap:10px}.listItem{display:flex;justify-content:space-between;gap:16px;padding:14px 16px;border:1px solid var(--line);border-radius:18px;background:rgba(255,255,255,.04)}
-    .note{margin-top:22px;font-size:12px;color:var(--soft)}
-    .reveal{opacity:0;transform:translateY(34px) scale(.99);transition:opacity .8s cubic-bezier(.22,1,.36,1),transform .8s cubic-bezier(.22,1,.36,1)}
-    .reveal.in-view{opacity:1;transform:translateY(0) scale(1)}
-    @keyframes reveal{to{transform:translateY(0)}} @keyframes fadeUp{to{opacity:1;transform:translateY(0) scale(1)}}
-    @keyframes drift{0%,100%{transform:translateY(0) translateX(0) scale(1)}50%{transform:translateY(-18px) translateX(6px) scale(1.04)}}
-    @media (max-width:1100px){.hero,.toolbar,.systemGrid,.split2,.sectionHead{grid-template-columns:1fr;display:grid}.resultsGrid,.rankingGrid,.badgeGrid{grid-template-columns:repeat(2,1fr)}.nav{display:none}}
-    @media (max-width:700px){.wrap{padding:18px 16px 48px}.resultsGrid,.rankingGrid,.badgeGrid{grid-template-columns:1fr}.topbar{margin-bottom:24px}.hero{padding-bottom:46px}}
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>CAONGD · Informe interactivo 2023</title>
+<meta name="description" content="Informe interactivo profesional CAONGD 2023" />
+
+<style>
+:root{
+  --bg:#071019;
+  --panel:rgba(255,255,255,.05);
+  --panel2:rgba(255,255,255,.08);
+  --line:rgba(255,255,255,.10);
+  --text:#ffffff;
+  --muted:rgba(255,255,255,.68);
+  --soft:rgba(255,255,255,.45);
+  --accent:#00c2ff;
+  --accent2:#6dffb7;
+  --danger:#ff8e8e;
+  --max:1380px;
+  --radius:24px;
+  --shadow:0 20px 70px rgba(0,0,0,.35);
+}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+  color:var(--text);
+  background:
+    radial-gradient(circle at 20% 0%, rgba(0,194,255,.12), transparent 25%),
+    radial-gradient(circle at 100% 100%, rgba(109,255,183,.08), transparent 28%),
+    linear-gradient(180deg,#071019 0%, #09141e 100%);
+}
+
+.wrap{max-width:var(--max);margin:auto;padding:26px}
+
+.topbar{
+  position:sticky;
+  top:16px;
+  z-index:10;
+  backdrop-filter:blur(18px);
+  background:rgba(0,0,0,.32);
+  border:1px solid var(--line);
+  border-radius:999px;
+  padding:14px 22px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:34px;
+}
+
+.eyebrow{
+  font-size:11px;
+  letter-spacing:.28em;
+  text-transform:uppercase;
+  color:var(--soft);
+}
+
+.topbar h1{
+  margin:3px 0 0;
+  font-size:14px;
+  font-weight:600;
+}
+
+.nav{
+  display:flex;
+  gap:18px;
+}
+
+.nav a{
+  color:var(--muted);
+  text-decoration:none;
+  font-size:14px;
+}
+
+.nav a:hover{color:#fff}
+
+.hero{
+  display:grid;
+  grid-template-columns:1.1fr .9fr;
+  gap:28px;
+  align-items:end;
+  padding:20px 0 60px;
+}
+
+.pill{
+  display:inline-flex;
+  padding:8px 14px;
+  border-radius:999px;
+  border:1px solid var(--line);
+  background:rgba(255,255,255,.04);
+  color:var(--muted);
+  font-size:12px;
+}
+
+.hero h2{
+  font-size:clamp(3rem,7vw,6rem);
+  line-height:.95;
+  letter-spacing:-.05em;
+  margin:18px 0 16px;
+}
+
+.lead{
+  max-width:720px;
+  color:var(--muted);
+  line-height:1.75;
+  font-size:18px;
+}
+
+.actions{
+  display:flex;
+  flex-wrap:wrap;
+  gap:12px;
+  margin-top:28px;
+}
+
+.btn{
+  border:none;
+  border-radius:999px;
+  padding:14px 22px;
+  font:inherit;
+  cursor:pointer;
+}
+
+.btn.primary{
+  background:#fff;
+  color:#000;
+}
+
+.btn.secondary{
+  background:rgba(255,255,255,.06);
+  color:#fff;
+  border:1px solid var(--line);
+}
+
+.panel{
+  border-radius:var(--radius);
+  border:1px solid var(--line);
+  background:var(--panel);
+  backdrop-filter:blur(18px);
+  box-shadow:var(--shadow);
+}
+
+.heroPanel{padding:18px}
+.grid4{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:14px;
+}
+
+.card{
+  padding:18px;
+  border-radius:18px;
+  border:1px solid var(--line);
+  background:rgba(255,255,255,.03);
+}
+
+.card .value{
+  font-size:32px;
+  font-weight:700;
+  letter-spacing:-.04em;
+}
+
+.card .label{
+  margin-top:6px;
+  font-size:14px;
+  color:var(--muted);
+}
+
+.section{margin-top:78px}
+
+.sectionHead{
+  display:flex;
+  justify-content:space-between;
+  gap:28px;
+  align-items:end;
+  margin-bottom:18px;
+}
+
+.sectionTitle{
+  margin:8px 0 0;
+  font-size:clamp(2rem,5vw,4rem);
+  line-height:1.02;
+  letter-spacing:-.04em;
+}
+
+.sectionCopy{
+  max-width:620px;
+  color:var(--muted);
+  line-height:1.75;
+}
+
+.toolbar{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:14px;
+  margin-top:20px;
+}
+
+.toolbar .panel{padding:18px}
+
+select{
+  width:100%;
+  padding:12px 14px;
+  border-radius:14px;
+  border:1px solid var(--line);
+  background:#101925;
+  color:#fff;
+  font:inherit;
+}
+
+.resultsGrid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:14px;
+  margin-top:16px;
+}
+
+.mini{
+  padding:18px;
+  border-radius:18px;
+  border:1px solid var(--line);
+  background:rgba(255,255,255,.03);
+}
+
+.mini .k{
+  font-size:11px;
+  color:var(--soft);
+  letter-spacing:.14em;
+  text-transform:uppercase;
+}
+
+.mini .v{
+  margin-top:10px;
+  font-size:30px;
+  font-weight:700;
+}
+
+.mini .s{
+  margin-top:8px;
+  font-size:13px;
+  color:var(--muted);
+}
+
+.notice{
+  margin-top:14px;
+  padding:14px 16px;
+  border-radius:16px;
+  border:1px solid rgba(255,142,142,.3);
+  background:rgba(255,142,142,.08);
+  color:#ffdede;
+  font-size:14px;
+}
+
+.tableWrap{
+  margin-top:16px;
+  overflow:auto;
+  border-radius:22px;
+  border:1px solid var(--line);
+}
+
+table{
+  width:100%;
+  border-collapse:collapse;
+  min-width:760px;
+}
+
+th,td{
+  padding:14px 16px;
+  border-bottom:1px solid rgba(255,255,255,.05);
+  text-align:left;
+  font-size:14px;
+}
+
+th{
+  background:rgba(255,255,255,.03);
+  color:var(--soft);
+  text-transform:uppercase;
+  letter-spacing:.12em;
+  font-size:11px;
+}
+
+.footer{
+  margin:90px 0 40px;
+  color:var(--soft);
+  font-size:13px;
+}
+
+@media (max-width:1100px){
+  .hero,.sectionHead,.toolbar{grid-template-columns:1fr;display:grid}
+  .resultsGrid{grid-template-columns:repeat(2,1fr)}
+  .nav{display:none}
+}
+
+@media (max-width:700px){
+  .resultsGrid,.grid4{grid-template-columns:1fr}
+  .wrap{padding:18px}
+}
+</style>
 </head>
+
 <body>
-  <div class="orb one"></div><div class="orb two"></div><div class="orb three"></div>
-  <div class="wrap">
-    <header class="topbar">
-      <div><p class="eyebrow">CAONGD / Informe interactivo profesional</p><h1>Sistema visual del trabajo de las ONGD y universidades andaluzas</h1></div>
-      <nav class="nav"><a href="#inicio">Inicio</a><a href="#explorador">Explorador</a><a href="#sistema">Sistema</a><a href="#rankings">Rankings</a><a href="#base-social">Base social</a></nav>
-    </header>
 
-    <section id="inicio" class="hero">
-      <div>
-        <div class="pill">Informe 2023 · regeneración automática · visualización personalizable</div>
-        <div class="headline">
-          <div class="headline-line"><span>Un informe interactivo</span></div>
-          <div class="headline-line"><span>capaz de cruzar variables,</span></div>
-          <div class="headline-line"><span>comparar y escalar.</span></div>
-        </div>
-        <p class="lead">Esta versión rehace profesionalmente la visualización del informe CAONGD 2023 e integra un motor de datos para generar automáticamente el informe anual, explorar dimensiones y visualizar resultados de forma dinámica y personalizable.</p>
-        <div class="actions">
-          <button class="btn primary" onclick="document.querySelector('#explorador').scrollIntoView({behavior:'smooth'})">Abrir explorador</button>
-          <button class="btn secondary" onclick="document.querySelector('#sistema').scrollIntoView({behavior:'smooth'})">Ver motor automático</button>
-        </div>
-      </div>
-      <div class="glass heroPanel">
-        <div class="heroPanelInner">
-          <div class="eyebrow" style="letter-spacing:.28em; margin-bottom:18px;">Resumen 2023</div>
-          <div class="metricGrid" id="summary-cards"></div>
-        </div>
-      </div>
-    </section>
+<div class="wrap">
 
-    <section id="explorador" class="section reveal">
-      <div class="sectionHead">
-        <div>
-          <p class="eyebrow">Explorador dinámico</p>
-          <h2 class="sectionTitle">El usuario puede integrar variables y cambiar la lectura.</h2>
-        </div>
-        <p class="sectionCopy">Selecciona una vista, una dimensión y una métrica. El sistema recompone automáticamente tarjetas, rankings y tablas. Esta lógica es la base para que cada nuevo año se publique con la misma estructura sin rehacer la web.</p>
-      </div>
-
-      <div class="toolbar">
-        <div class="glass">
-          <div class="field">
-            <label class="label" for="viewSelect">Vista</label>
-            <select id="viewSelect"></select>
-          </div>
-        </div>
-        <div class="glass">
-          <div class="field">
-            <label class="label" for="metricSelect">Métrica</label>
-            <select id="metricSelect"></select>
-          </div>
-        </div>
-      </div>
-
-      <div class="resultsGrid" id="dynamic-cards"></div>
-      <div class="tableWrap"><table><thead id="dynamic-head"></thead><tbody id="dynamic-body"></tbody></table></div>
-    </section>
-
-    <section id="sistema" class="section reveal">
-      <div class="sectionHead">
-        <div><p class="eyebrow">Sistema de generación automática</p><h2 class="sectionTitle">Un solo archivo de datos, múltiples salidas visuales.</h2></div>
-        <p class="sectionCopy">La herramienta propuesta permite integrar diversas variables, cargar series anuales y regenerar automáticamente un informe interactivo con filtros, rankings, comparativas y lectura territorial.</p>
-      </div>
-      <div class="systemGrid">
-        <div class="glass stackList" id="layers-list"></div>
-        <div class="glass stackGrid">
-          <div class="badgeGrid" id="dimensions-grid"></div>
-          <div class="workflow">
-            <div class="workflowTitle">Flujo automático</div>
-            <strong>Recoger datos → validar → transformar → visualizar → publicar</strong>
-            <p>El modelo separa contenido y presentación. Eso permite actualizar el informe con nuevos datos, añadir variables y mantener consistente toda la experiencia interactiva.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="rankings" class="section reveal">
-      <div class="sectionHead">
-        <div><p class="eyebrow">Rankings y focos</p><h2 class="sectionTitle">Lecturas ejecutivas de alto valor.</h2></div>
-        <p class="sectionCopy">Además de la navegación libre, el sistema destaca automáticamente territorios, áreas y entidades con mayor volumen relativo para facilitar lectura rápida a equipos técnicos, financiadores y comunicación.</p>
-      </div>
-      <div class="split2">
-        <div class="glass stackList">
-          <p class="eyebrow">Top países por inversión</p>
-          <div class="list" id="top-countries"></div>
-        </div>
-        <div class="glass stackList">
-          <p class="eyebrow">Top ONGD por fondos gestionados</p>
-          <div class="list" id="top-ongd"></div>
-        </div>
-      </div>
-      <div class="rankingGrid" id="area-cards" style="margin-top:16px"></div>
-    </section>
-
-    <section id="base-social" class="section reveal">
-      <div class="sectionHead">
-        <div><p class="eyebrow">Base social e implantación</p><h2 class="sectionTitle">El informe también mide legitimidad social.</h2></div>
-        <p class="sectionCopy">Se incorporan indicadores sobre personas socias, voluntariado, personal contratado, personal expatriado y composición de órganos de gobierno. Esta capa puede seguir creciendo con tramos de edad y evolución anual.</p>
-      </div>
-      <div class="resultsGrid" id="social-cards"></div>
-      <div class="glass cta" style="margin-top:16px">
-        <h3 style="margin:0;font-size:28px;letter-spacing:-.03em">Arquitectura recomendada de la herramienta</h3>
-        <p style="max-width:860px">Frontend estático premium + archivo JSON anual + posibilidad de conectar formularios o base de datos. El sistema puede crecer hacia paneles comparativos 2022/2023/2024, filtros múltiples, exportación de vistas y cuadros específicos para Andalucía, otros países, ODS, financiadoras, provincias y grupos de población.</p>
-        <p class="note">Diseñado para que la CAONGD pueda publicar un nuevo año cambiando datos, no rehaciendo páginas.</p>
-      </div>
-    </section>
+<header class="topbar">
+  <div>
+    <div class="eyebrow">CAONGD · Informe interactivo profesional</div>
+    <h1>Sistema visual del trabajo de las ONGD andaluzas</h1>
   </div>
 
-<script>
-function fmt(n){ if(n===null||n===undefined) return '—'; return new Intl.NumberFormat('es-ES').format(n); }
-async function loadData(){ const r = await fetch('./data.json'); if(!r.ok) throw new Error('No se pudo cargar data.json'); return r.json(); }
+  <nav class="nav">
+    <a href="#inicio">Inicio</a>
+    <a href="#explorador">Explorador</a>
+    <a href="#social">Base social</a>
+  </nav>
+</header>
 
-const viewConfigs = {
-  international_geographic_areas: {
-    label: 'Trabajo internacional · áreas geográficas',
-    getRows: d => d.international_work.geographic_areas.map(x => ({
-      nombre: x.name, paises: x.countries, ongd: x.ongd, proyectos: x.projects, personas: x.people, inversion: x.investment_eur
-    }))
+<section class="hero" id="inicio">
+
+<div>
+  <div class="pill">Informe 2023 · motor automático · versión institucional</div>
+
+  <h2>
+    Un informe capaz de cruzar variables, comparar y escalar.
+  </h2>
+
+  <p class="lead">
+    Visualización avanzada del informe CAONGD 2023 con un sistema basado en datos.
+    Cada nuevo año puede publicarse actualizando únicamente el archivo JSON.
+  </p>
+
+  <div class="actions">
+    <button class="btn primary" onclick="go('#explorador')">Abrir explorador</button>
+    <button class="btn secondary" onclick="go('#social')">Ver base social</button>
+  </div>
+</div>
+
+<div class="panel heroPanel">
+  <div class="grid4" id="summaryCards"></div>
+</div>
+
+</section>
+
+<section class="section" id="explorador">
+
+<div class="sectionHead">
+  <div>
+    <div class="eyebrow">Explorador dinámico</div>
+    <h3 class="sectionTitle">El usuario puede cambiar la lectura del informe</h3>
+  </div>
+
+  <p class="sectionCopy">
+    Selecciona una vista y una métrica. El sistema recompone tarjetas,
+    rankings y tabla comparativa automáticamente.
+  </p>
+</div>
+
+<div class="toolbar">
+  <div class="panel">
+    <div class="eyebrow">Vista</div>
+    <select id="viewSelect"></select>
+  </div>
+
+  <div class="panel">
+    <div class="eyebrow">Métrica</div>
+    <select id="metricSelect"></select>
+  </div>
+</div>
+
+<div id="warningBox"></div>
+
+<div class="resultsGrid" id="dynamicCards"></div>
+
+<div class="tableWrap">
+<table>
+<thead id="thead"></thead>
+<tbody id="tbody"></tbody>
+</table>
+</div>
+
+</section>
+
+<section class="section" id="social">
+
+<div class="sectionHead">
+  <div>
+    <div class="eyebrow">Base social</div>
+    <h3 class="sectionTitle">Legitimidad social y estructura humana</h3>
+  </div>
+
+  <p class="sectionCopy">
+    Indicadores sobre personas socias, voluntariado, personal contratado,
+    expatriado y órganos de gobierno.
+  </p>
+</div>
+
+<div class="resultsGrid" id="socialCards"></div>
+
+</section>
+
+<div class="footer">
+CAONGD · Informe interactivo 2023 · Arquitectura lista para actualización anual
+</div>
+
+</div>
+
+<script>
+function fmt(n){
+  if(n===null || n===undefined) return "—";
+  return new Intl.NumberFormat("es-ES").format(n);
+}
+
+function go(id){
+  document.querySelector(id).scrollIntoView({behavior:"smooth"});
+}
+
+async function loadData(){
+  const r = await fetch("./data.json");
+  if(!r.ok) throw new Error("No se pudo cargar data.json");
+  return await r.json();
+}
+
+const metricLabels = {
+  projects:"Proyectos",
+  people:"Personas",
+  investment_eur:"Inversión (€)",
+  ongd:"ONGD",
+  countries:"Países",
+  men:"Hombres",
+  women:"Mujeres"
+};
+
+const views = {
+  international_areas:{
+    label:"Trabajo internacional · áreas geográficas",
+    rows:d => d.international_work.geographic_areas
   },
-  international_top_countries: {
-    label: 'Trabajo internacional · países con más inversión',
-    getRows: d => d.international_work.top_countries_investment.map(x => ({
-      nombre: x.name, proyectos: x.projects, personas: x.people, inversion: x.investment_eur
-    }))
+
+  top_countries:{
+    label:"Trabajo internacional · top países",
+    rows:d => d.international_work.top_countries_investment
   },
-  andalusia_areas: {
-    label: 'Andalucía · áreas de trabajo',
-    getRows: d => d.andalusia_work.areas.map(x => ({
-      nombre: x.name, ongd: x.ongd, proyectos: x.projects, personas: x.people, hombres: x.men, mujeres: x.women, inversion: x.investment_eur
-    }))
+
+  andalusia_areas:{
+    label:"Andalucía · áreas de trabajo",
+    rows:d => d.andalusia_work.areas
   },
-  andalusia_provinces: {
-    label: 'Andalucía · provincias',
-    getRows: d => d.andalusia_work.provinces.map(x => ({
-      nombre: x.name, ongd: x.ongd, proyectos: x.projects, inversion: x.investment_eur
-    }))
+
+  provinces:{
+    label:"Andalucía · provincias",
+    rows:d => d.andalusia_work.provinces
   },
-  epd_thematics: {
-    label: 'Andalucía · EpD por temáticas',
-    getRows: d => d.andalusia_work.epd_thematics.map(x => ({
-      nombre: x.name, ongd: x.ongd, proyectos: x.projects, inversion: x.investment_eur
-    }))
+
+  epd:{
+    label:"Andalucía · EpD temáticas",
+    rows:d => d.andalusia_work.epd_thematics
   }
 };
 
-const metricOptions = {
-  proyectos: 'Número de proyectos',
-  personas: 'Personas',
-  inversion: 'Inversión (€)',
-  ongd: 'Número de ONGD',
-  paises: 'Número de países',
-  hombres: 'Hombres',
-  mujeres: 'Mujeres'
-};
-
-function setupSummary(d){
-  const cards = [
-    {v: fmt(d.international_work.countries), l: 'países y territorios'},
-    {v: fmt(d.international_work.projects), l: 'proyectos internacionales'},
-    {v: fmt(d.andalusia_work.projects), l: 'proyectos en Andalucía'},
-    {v: fmt(d.social_base.members), l: 'personas socias'}
+function buildSummary(d){
+  const arr = [
+    ["60", "Países y territorios"],
+    [fmt(d.international_work.projects), "Proyectos internacionales"],
+    [fmt(d.andalusia_work.projects), "Proyectos en Andalucía"],
+    [fmt(d.social_base.members), "Personas socias"]
   ];
-  document.getElementById('summary-cards').innerHTML = cards.map(c => `<div class="metricCard"><div class="metricValue">${c.v}</div><div class="metricLabel">${c.l}</div></div>`).join('');
+
+  summaryCards.innerHTML = arr.map(x=>`
+    <div class="card">
+      <div class="value">${x[0]}</div>
+      <div class="label">${x[1]}</div>
+    </div>
+  `).join("");
 }
 
-function setupSystem(d){
-  document.getElementById('layers-list').innerHTML = [
-    ['Capa de datos', 'JSON anual con estructura estable y ampliable'],
-    ['Transformación', 'Normalización de cifras, dimensiones y series comparables'],
-    ['Motor visual', 'Tarjetas, rankings, tablas y vistas filtrables'],
-    ['Publicación', 'Salida estática lista para web pública'],
-    ['Escalado', 'Admite nuevas variables, años y módulos temáticos']
-  ].map(x => `<div class="stackItem"><div class="stackKey">${x[0]}</div><div class="stackDesc">${x[1]}</div></div>`).join('');
-  document.getElementById('dimensions-grid').innerHTML = d.automation.dimensions.map(x => `<div class="badge">${x}</div>`).join('');
-}
+function buildSocial(d){
+  const s=d.social_base;
 
-function setupRankings(d){
-  document.getElementById('top-countries').innerHTML = d.international_work.top_countries_investment.map((x,i) => `
-    <div class="listItem"><div><strong>${i+1}. ${x.name}</strong><div style="margin-top:6px;color:var(--muted);font-size:13px">${fmt(x.projects)} proyectos · ${fmt(x.people)} personas</div></div><div><strong>${fmt(x.investment_eur)} €</strong></div></div>
-  `).join('');
-  document.getElementById('top-ongd').innerHTML = d.international_work.top_ongd_funds.map((x,i) => `
-    <div class="listItem"><div><strong>${i+1}. ${x.name}</strong><div style="margin-top:6px;color:var(--muted);font-size:13px">${fmt(x.projects)} proyectos · ${fmt(x.countries)} países</div></div><div><strong>${fmt(x.investment_eur)} €</strong></div></div>
-  `).join('');
-  document.getElementById('area-cards').innerHTML = d.andalusia_work.areas.map(x => `
-    <div class="rankingCard"><div class="eyebrow" style="margin-bottom:10px">${x.name}</div><div style="font-size:32px;font-weight:700;letter-spacing:-.04em">${fmt(x.projects)}</div><div style="margin-top:6px;color:var(--muted)">proyectos · ${fmt(x.people)} personas · ${fmt(x.investment_eur)} €</div></div>
-  `).join('');
-}
-
-function setupSocial(d){
-  const s = d.social_base;
-  const cards = [
-    ['Personas socias', fmt(s.members), `${String(s.members_women_pct).replace('.', ',')}% mujeres`],
-    ['Voluntariado Andalucía', fmt(s.volunteers_andalusia), `${String(s.volunteers_women_pct).replace('.', ',')}% mujeres`],
-    ['Personal contratado', fmt(s.staff_andalusia), `${String(s.staff_women_pct).replace('.', ',')}% mujeres`],
-    ['Personal expatriado', fmt(s.expatriates), `${String(s.expatriates_women_pct).replace('.', ',')}% mujeres`],
-    ['Juntas y patronatos', fmt(s.boards_total), `${String(s.boards_women_pct).replace('.', ',')}% mujeres`]
+  const rows = [
+    ["Personas socias", fmt(s.members), s.members_women_pct + "% mujeres"],
+    ["Voluntariado", fmt(s.volunteers_andalusia), s.volunteers_women_pct + "% mujeres"],
+    ["Personal contratado", fmt(s.staff_andalusia), s.staff_women_pct + "% mujeres"],
+    ["Personal expatriado", fmt(s.expatriates), s.expatriates_women_pct + "% mujeres"],
+    ["Juntas / patronatos", fmt(s.boards_total), s.boards_women_pct + "% mujeres"]
   ];
-  document.getElementById('social-cards').innerHTML = cards.map(c => `<div class="mini"><div class="k">${c[0]}</div><div class="v">${c[1]}</div><div class="s">${c[2]}</div></div>`).join('');
+
+  socialCards.innerHTML = rows.map(r=>`
+    <div class="mini">
+      <div class="k">${r[0]}</div>
+      <div class="v">${r[1]}</div>
+      <div class="s">${r[2]}</div>
+    </div>
+  `).join("");
 }
 
 function setupExplorer(data){
-  const viewSelect = document.getElementById('viewSelect');
-  const metricSelect = document.getElementById('metricSelect');
 
-  Object.entries(viewConfigs).forEach(([key,cfg]) => {
-    const opt = document.createElement('option'); opt.value = key; opt.textContent = cfg.label; viewSelect.appendChild(opt);
+  Object.entries(views).forEach(([k,v])=>{
+    const o=document.createElement("option");
+    o.value=k;
+    o.textContent=v.label;
+    viewSelect.appendChild(o);
   });
-  Object.entries(metricOptions).forEach(([key,label]) => {
-    const opt = document.createElement('option'); opt.value = key; opt.textContent = label; metricSelect.appendChild(opt);
+
+  Object.entries(metricLabels).forEach(([k,v])=>{
+    const o=document.createElement("option");
+    o.value=k;
+    o.textContent=v;
+    metricSelect.appendChild(o);
   });
+
+  viewSelect.value="andalusia_areas";
+  metricSelect.value="projects";
 
   function render(){
-    const rows = viewConfigs[viewSelect.value].getRows(data);
-    const metric = metricSelect.value;
-    const usable = rows.filter(r => r[metric] !== undefined && r[metric] !== null);
-    usable.sort((a,b)=> (b[metric]||0) - (a[metric]||0));
 
-    const top = usable.slice(0,4);
-    document.getElementById('dynamic-cards').innerHTML = top.map((r, idx) => `
+    const key=viewSelect.value;
+    const metric=metricSelect.value;
+
+    let rows=views[key].rows(data).map(x=>({...x}));
+
+    rows=rows.filter(r=>r[metric]!==undefined && r[metric]!==null);
+
+    rows.sort((a,b)=>(b[metric]||0)-(a[metric]||0));
+
+    warningBox.innerHTML="";
+
+    if(key==="provinces"){
+      warningBox.innerHTML=`
+        <div class="notice">
+          Datos provinciales financieros pendientes de validación oficial.
+          Se muestran únicamente métricas verificadas.
+        </div>
+      `;
+    }
+
+    const top=rows.slice(0,4);
+
+    dynamicCards.innerHTML = top.map((r,i)=>`
       <div class="mini">
-        <div class="k">#${idx+1} · ${r.nombre}</div>
-        <div class="v">${metric === 'inversion' ? fmt(r[metric]) + ' €' : fmt(r[metric])}</div>
-        <div class="s">${Object.keys(r).filter(k=>!['nombre',metric].includes(k) && r[k]!==null && r[k]!==undefined).slice(0,2).map(k => `${metricOptions[k] || k}: ${fmt(r[k])}`).join(' · ')}</div>
+        <div class="k">#${i+1} · ${r.name}</div>
+        <div class="v">${
+          metric==="investment_eur"
+          ? fmt(r[metric])+" €"
+          : fmt(r[metric])
+        }</div>
+        <div class="s">
+          ${Object.keys(r)
+            .filter(k=>!["name",metric].includes(k))
+            .filter(k=>r[k]!==null && r[k]!==undefined)
+            .slice(0,2)
+            .map(k=>`${metricLabels[k]||k}: ${fmt(r[k])}`)
+            .join(" · ")}
+        </div>
       </div>
-    `).join('');
+    `).join("");
 
-    const keys = ['nombre', ...Object.keys(usable[0]||{}).filter(k => k !== 'nombre')];
-    document.getElementById('dynamic-head').innerHTML = '<tr>' + keys.map(k => `<th>${k==='nombre'?'Nombre':(metricOptions[k]||k)}</th>`).join('') + '</tr>';
-    document.getElementById('dynamic-body').innerHTML = usable.map(r => '<tr>' + keys.map(k => `<td>${k==='inversion' ? (r[k]===null||r[k]===undefined?'—':fmt(r[k])+' €') : (typeof r[k]==='number'?fmt(r[k]):(r[k]??'—'))}</td>`).join('') + '</tr>').join('');
+    const cols=["name", ...Object.keys(rows[0]||{}).filter(k=>k!=="name")];
+
+    thead.innerHTML="<tr>"+cols.map(c=>`
+      <th>${c==="name" ? "Nombre" : (metricLabels[c]||c)}</th>
+    `).join("")+"</tr>";
+
+    tbody.innerHTML = rows.map(r=>`
+      <tr>
+        ${cols.map(c=>`
+          <td>
+          ${
+            c==="investment_eur" && r[c]!=null
+            ? fmt(r[c])+" €"
+            : (typeof r[c]==="number" ? fmt(r[c]) : (r[c] ?? "—"))
+          }
+          </td>
+        `).join("")}
+      </tr>
+    `).join("");
   }
 
-  viewSelect.value = 'andalusia_areas';
-  metricSelect.value = 'proyectos';
-  viewSelect.addEventListener('change', render);
-  metricSelect.addEventListener('change', render);
-  render();
-}
+  viewSelect.onchange=render;
+  metricSelect.onchange=render;
 
-function initRevealObserver(){
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => { if (entry.isIntersecting) entry.target.classList.add('in-view'); });
-  }, { threshold: 0.18 });
-  document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+  render();
 }
 
 async function init(){
   try{
     const data = await loadData();
-    setupSummary(data); setupSystem(data); setupRankings(data); setupSocial(data); setupExplorer(data); initRevealObserver();
-  }catch(err){
-    console.error(err);
-    document.body.insertAdjacentHTML('beforeend', `<div style="position:fixed;left:16px;right:16px;bottom:16px;padding:14px 16px;background:#200;border:1px solid #500;color:#fff;border-radius:12px;z-index:9999">Error cargando data.json.</div>`);
+    buildSummary(data);
+    buildSocial(data);
+    setupExplorer(data);
+  }catch(e){
+    document.body.innerHTML="<div style='padding:40px;color:white'>Error cargando data.json</div>";
+    console.error(e);
   }
 }
+
 init();
 </script>
+
 </body>
 </html>
