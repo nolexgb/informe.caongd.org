@@ -1,0 +1,145 @@
+{
+  "meta": {
+    "project": "CAONGD Informe Interactivo",
+    "year": 2023,
+    "version": "1.0.0",
+    "language": "es",
+    "updated_at": "2026-04-15",
+    "source": "https://informe.caongd.org/"
+  },
+  "summary": {
+    "andalusia_participants": 1753753,
+    "women_percentage": 52.5,
+    "other_countries_reached": 14354248,
+    "countries_and_territories": 60,
+    "member_ongd": 69,
+    "provincial_platforms": 6
+  },
+  "andalusia": {
+    "title": "Trabajo en Andalucía",
+    "participants": 1753753,
+    "women_percentage": 52.5,
+    "areas": [
+      {
+        "slug": "educacion-para-el-desarrollo",
+        "name": "Educación para el desarrollo",
+        "projects": 263,
+        "participants": 608550,
+        "description": "Área con uno de los mayores volúmenes de participación en Andalucía."
+      },
+      {
+        "slug": "accion-social",
+        "name": "Acción social",
+        "projects": 149,
+        "participants": null,
+        "description": "Intervenciones orientadas a mejorar condiciones de vida y fortalecer el tejido social."
+      },
+      {
+        "slug": "participacion-y-voluntariado",
+        "name": "Participación y voluntariado",
+        "projects": null,
+        "participants": null,
+        "description": "Bloque destinado a medir participación social y voluntariado vinculado al sector."
+      },
+      {
+        "slug": "investigacion-e-incidencia",
+        "name": "Investigación e incidencia",
+        "projects": null,
+        "participants": null,
+        "description": "Área destinada a comunicar capacidad de análisis, propuesta pública e influencia social."
+      }
+    ],
+    "provinces": [
+      { "name": "Sevilla", "active": true },
+      { "name": "Málaga", "active": true },
+      { "name": "Granada", "active": true },
+      { "name": "Cádiz", "active": true },
+      { "name": "Córdoba", "active": true },
+      { "name": "Jaén", "active": true },
+      { "name": "Huelva", "active": true },
+      { "name": "Almería", "active": true }
+    ]
+  },
+  "other_countries": {
+    "title": "Trabajo en otros países",
+    "reached_people": 14354248,
+    "countries_and_territories": 60,
+    "description": "Alcance internacional del trabajo de las ONGD andaluzas durante 2023."
+  },
+  "system": {
+    "title": "Sistema de generación automática",
+    "steps": [
+      "Recoger datos",
+      "Validar",
+      "Generar visualización",
+      "Publicar"
+    ],
+    "capabilities": [
+      "Datos estructurados",
+      "Mapas interactivos",
+      "Filtros dinámicos",
+      "Informe autogenerado",
+      "Comparativas interanuales",
+      "Narrativa visual",
+      "Escalabilidad anual",
+      "Personalización"
+    ],
+    "layers": [
+      {
+        "name": "Capa de datos",
+        "description": "Series anuales, indicadores, entidades y territorios"
+      },
+      {
+        "name": "Motor visual",
+        "description": "Gráficas, tarjetas, mapa y narrativa editorial"
+      },
+      {
+        "name": "Automatización",
+        "description": "Validación, transformación y publicación"
+      },
+      {
+        "name": "Comparativas",
+        "description": "Lectura interanual por áreas, personas y alcance"
+      },
+      {
+        "name": "Recursos públicos",
+        "description": "Identidad visual, activos y documentación"
+      }
+    ]
+  },
+  "comparisons": {
+    "title": "Comparativas interanuales",
+    "timeline": [
+      {
+        "year": 2023,
+        "title": "Base de datos consolidada",
+        "detail": "Se integran las cifras públicas del informe: Andalucía, entidades socias y trabajo en otros países."
+      },
+      {
+        "year": 2024,
+        "title": "Modelo automatizado",
+        "detail": "La actualización anual pasa a estructurarse como un sistema de datos listo para regenerar el informe interactivo."
+      },
+      {
+        "year": 2025,
+        "title": "Comparativa sectorial",
+        "detail": "Se habilitan comparativas interanuales para leer evolución, tendencias y cambios por áreas y territorios."
+      },
+      {
+        "year": 2026,
+        "title": "Experiencia personalizable",
+        "detail": "El informe se consulta mediante filtros dinámicos, capas temáticas y recorridos adaptados a cada público."
+      }
+    ]
+  },
+  "ui": {
+    "headline": [
+      "La cooperación andaluza,",
+      "convertida en una experiencia",
+      "visual de alto nivel."
+    ],
+    "lead": "Una plataforma pensada para comunicar mejor, actualizarse de forma automática y transformar datos institucionales en una narrativa clara, elegante y memorable.",
+    "cta_primary": "Ver sistema interactivo",
+    "cta_secondary": "Explorar comparativas"
+  }
+}
