@@ -3,328 +3,341 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>CAONGD · Informe interactivo premium</title>
-  <meta name="description" content="Prototipo premium del informe interactivo de la CAONGD" />
+  <title>CAONGD · Informe interactivo 2023</title>
+  <meta name="description" content="Informe interactivo profesional CAONGD 2023" />
   <style>
-    :root {
-      --bg: #06070a;
-      --line: rgba(255,255,255,0.10);
-      --text: rgba(255,255,255,0.96);
-      --muted: rgba(255,255,255,0.62);
-      --soft: rgba(255,255,255,0.42);
-      --shadow: 0 24px 80px rgba(0,0,0,.35);
-      --radius-xl: 32px;
-      --max: 1240px;
+    :root{
+      --bg:#05070b; --panel:rgba(255,255,255,.05); --panel2:rgba(255,255,255,.08); --line:rgba(255,255,255,.10);
+      --text:rgba(255,255,255,.96); --muted:rgba(255,255,255,.64); --soft:rgba(255,255,255,.42);
+      --accent:#c8ff5a; --accent2:#7de2ff; --shadow:0 24px 80px rgba(0,0,0,.35); --max:1280px;
     }
-    * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-    body {
-      margin: 0;
-      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background:
-        radial-gradient(circle at 50% -10%, rgba(255,255,255,.12), transparent 26%),
-        radial-gradient(circle at 0% 40%, rgba(0,180,255,.10), transparent 24%),
-        radial-gradient(circle at 100% 90%, rgba(80,120,255,.10), transparent 22%),
-        #06070a;
-      color: var(--text);
-      min-height: 100vh;
-      overflow-x: hidden;
-    }
-    .orb { position: fixed; border-radius: 999px; filter: blur(64px); opacity: .7; pointer-events: none; animation: drift 9s ease-in-out infinite; z-index: 0; }
-    .orb.one { width: 420px; height: 420px; top: -110px; left: 50%; transform: translateX(-50%); background: rgba(255,255,255,.09); }
-    .orb.two { width: 240px; height: 240px; top: 420px; left: -80px; background: rgba(0,190,255,.12); animation-delay: 1.2s; }
-    .orb.three { width: 320px; height: 320px; right: -60px; bottom: 0; background: rgba(80,120,255,.12); animation-delay: 2.5s; }
-    .wrap { position: relative; z-index: 1; max-width: var(--max); margin: 0 auto; padding: 28px 24px 60px; }
-    .topbar { position: sticky; top: 16px; z-index: 10; display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 14px 20px; border: 1px solid var(--line); background: rgba(0,0,0,.34); backdrop-filter: blur(18px); border-radius: 999px; margin-bottom: 40px; }
-    .eyebrow { font-size: 11px; letter-spacing: .34em; text-transform: uppercase; color: var(--soft); margin: 0 0 4px; }
-    .topbar h1 { margin: 0; font-size: 14px; font-weight: 600; color: rgba(255,255,255,.90); }
-    .nav { display: flex; gap: 22px; color: var(--muted); font-size: 14px; }
-    .nav a { color: inherit; text-decoration: none; }
-    .hero { display: grid; grid-template-columns: 1.2fr .8fr; gap: 32px; align-items: end; padding: 24px 0 90px; }
-    .pill { display: inline-flex; align-items: center; gap: 8px; border: 1px solid var(--line); background: rgba(255,255,255,.05); color: var(--muted); padding: 9px 14px; border-radius: 999px; font-size: 12px; backdrop-filter: blur(12px); }
-    .headline { margin: 18px 0 0; max-width: 820px; }
-    .headline-line { display: block; overflow: hidden; font-size: clamp(3rem, 7.5vw, 5.7rem); line-height: .98; letter-spacing: -.05em; font-weight: 650; }
-    .headline-line span { display: block; transform: translateY(110%); animation: reveal .9s cubic-bezier(.22,1,.36,1) forwards; }
-    .headline-line:nth-child(2) span { animation-delay: .08s; }
-    .headline-line:nth-child(3) span { animation-delay: .16s; }
-    .lead { max-width: 700px; margin: 22px 0 0; color: var(--muted); font-size: 18px; line-height: 1.75; opacity: 0; transform: translateY(22px); animation: fadeUp .9s .28s forwards; }
-    .actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; opacity: 0; transform: translateY(18px); animation: fadeUp .8s .38s forwards; }
-    .btn { appearance: none; border: 1px solid transparent; border-radius: 999px; padding: 14px 20px; font: inherit; cursor: pointer; transition: transform .2s ease, background .2s ease, border-color .2s ease, color .2s ease; }
-    .btn.primary { background: #fff; color: #000; }
-    .btn.secondary { background: rgba(255,255,255,.05); color: rgba(255,255,255,.82); border-color: rgba(255,255,255,.14); }
-    .btn:hover { transform: translateY(-2px); }
-    .glass { border: 1px solid var(--line); background: rgba(255,255,255,.05); border-radius: var(--radius-xl); backdrop-filter: blur(18px); box-shadow: var(--shadow); }
-    .metric-panel { padding: 16px; opacity: 0; transform: translateY(24px) scale(.985); animation: fadeUp .9s .2s forwards; }
-    .metric-panel-inner { padding: 20px; border-radius: 26px; border: 1px solid var(--line); background: linear-gradient(to bottom, rgba(255,255,255,.09), rgba(255,255,255,.03)); }
-    .metric-grid { display: grid; gap: 14px; }
-    .metric-card { padding: 18px; border-radius: 20px; border: 1px solid var(--line); background: rgba(0,0,0,.20); transition: transform .25s ease, background .25s ease; }
-    .metric-card:hover { transform: translateY(-4px); background: rgba(255,255,255,.07); }
-    .metric-value { font-size: clamp(2rem, 4vw, 2.3rem); font-weight: 650; letter-spacing: -.04em; }
-    .metric-label { margin-top: 6px; font-size: 14px; color: rgba(255,255,255,.56); }
-    .section { margin-top: 92px; }
-    .grid-4 { display: grid; gap: 16px; grid-template-columns: repeat(4, 1fr); }
-    .info-card, .timeline-card { padding: 24px; border-radius: 28px; border: 1px solid var(--line); background: rgba(255,255,255,.04); transition: transform .25s ease, background .25s ease; }
-    .info-card:hover, .timeline-card:hover { transform: translateY(-8px); background: rgba(255,255,255,.06); }
-    .icon-dot { width: 40px; height: 40px; border-radius: 16px; border: 1px solid var(--line); background: rgba(255,255,255,.10); margin-bottom: 18px; animation: pulse 5s ease-in-out infinite; }
-    .info-card h3, .timeline-card h4 { margin: 0; font-size: 22px; letter-spacing: -.03em; }
-    .info-card p, .timeline-card p { margin: 12px 0 0; font-size: 14px; line-height: 1.7; color: var(--muted); }
-    .section-head { display: flex; align-items: end; justify-content: space-between; gap: 30px; margin-bottom: 24px; }
-    .section-title { margin: 10px 0 0; font-size: clamp(2.1rem, 5vw, 4rem); letter-spacing: -.045em; line-height: 1.02; }
-    .section-copy { max-width: 600px; color: var(--muted); line-height: 1.75; font-size: 15px; }
-    .map-layout, .system-layout, .cta-layout { display: grid; gap: 28px; grid-template-columns: .95fr 1.05fr; align-items: stretch; }
-    .province-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-top: 28px; }
-    .province, .badge, .stack-item, .map-stat { padding: 13px 14px; border-radius: 18px; border: 1px solid var(--line); background: rgba(255,255,255,.04); color: rgba(255,255,255,.78); font-size: 14px; transition: transform .2s ease, background .2s ease; }
-    .province:hover, .badge:hover, .stack-item:hover, .map-stat:hover { transform: translateY(-4px); background: rgba(255,255,255,.08); }
-    .map-panel { padding: 16px; }
-    .map-scene { position: relative; min-height: 460px; border-radius: 28px; overflow: hidden; border: 1px solid var(--line); background: linear-gradient(135deg, #10141d, #07080b 68%); padding: 24px; }
-    .map-light { position: absolute; inset: 0; background: radial-gradient(circle at top, rgba(255,255,255,.16), transparent 35%); animation: glow 6s ease-in-out infinite; }
-    .map-top { position: relative; z-index: 1; display: flex; justify-content: space-between; align-items: start; }
-    .status { border: 1px solid var(--line); background: rgba(255,255,255,.05); color: var(--muted); border-radius: 999px; padding: 8px 12px; font-size: 12px; animation: blink 2.4s ease-in-out infinite; }
-    .map-mosaic { position: relative; z-index: 1; display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; max-width: 360px; margin: 40px auto 0; }
-    .map-cell { aspect-ratio: 1 / 1; border-radius: 20px; border: 1px solid var(--line); background: rgba(255,255,255,.06); }
-    .map-cell.active { background: rgba(255,255,255,.18); }
-    .map-stats { position: relative; z-index: 1; display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 32px; }
-    .map-stat small { display: block; color: var(--soft); }
-    .map-stat strong { display: block; margin-top: 8px; font-size: 21px; font-weight: 600; }
-    .stack-list, .stack-grid, .cta { padding: 24px; }
-    .stack-key { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 14px; color: rgba(255,255,255,.86); }
-    .stack-desc { margin-top: 5px; font-size: 14px; color: rgba(255,255,255,.50); }
-    .badge-grid, .timeline-grid { display: grid; gap: 12px; grid-template-columns: repeat(4, 1fr); }
-    .workflow { margin-top: 18px; padding: 20px; border-radius: 24px; border: 1px solid var(--line); background: linear-gradient(to right, rgba(255,255,255,.10), rgba(255,255,255,.03)); }
-    .workflow-title { font-size: 11px; letter-spacing: .32em; text-transform: uppercase; color: var(--soft); }
-    .workflow strong { display: block; margin-top: 10px; font-size: 22px; font-weight: 600; color: rgba(255,255,255,.86); letter-spacing: -.03em; }
-    .workflow p, .cta p { margin: 8px 0 0; color: var(--muted); line-height: 1.75; font-size: 14px; }
-    .timeline-card .year { color: var(--soft); font-size: 14px; margin-bottom: 10px; }
-    .cta { border-radius: 36px; background: linear-gradient(to bottom, rgba(255,255,255,.10), rgba(255,255,255,.03)); }
-    .cta-layout { grid-template-columns: 1.15fr .85fr; align-items: end; }
-    .cta-actions { display: grid; gap: 12px; }
-    .note { margin-top: 22px; font-size: 12px; color: var(--soft); }
-    .reveal { opacity: 0; transform: translateY(34px) scale(.99); transition: opacity .8s cubic-bezier(.22,1,.36,1), transform .8s cubic-bezier(.22,1,.36,1); }
-    .reveal.in-view { opacity: 1; transform: translateY(0) scale(1); }
-    @keyframes reveal { to { transform: translateY(0); } }
-    @keyframes fadeUp { to { opacity: 1; transform: translateY(0) scale(1); } }
-    @keyframes drift { 0%,100% { transform: translateY(0) translateX(0) scale(1); } 50% { transform: translateY(-18px) translateX(6px) scale(1.04); } }
-    @keyframes pulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.08); } }
-    @keyframes glow { 0%,100% { opacity: .35; } 50% { opacity: .7; } }
-    @keyframes blink { 0%,100% { opacity: .55; } 50% { opacity: 1; } }
-    @media (max-width: 1100px) {
-      .hero, .map-layout, .system-layout, .cta-layout, .section-head { grid-template-columns: 1fr; display: grid; }
-      .grid-4, .timeline-grid, .badge-grid { grid-template-columns: repeat(2, 1fr); }
-      .province-grid, .map-stats { grid-template-columns: repeat(2, 1fr); }
-      .nav { display: none; }
-    }
-    @media (max-width: 700px) {
-      .wrap { padding: 18px 16px 44px; }
-      .topbar { margin-bottom: 24px; }
-      .hero { padding-bottom: 46px; }
-      .grid-4, .timeline-grid, .badge-grid, .map-stats, .province-grid { grid-template-columns: 1fr; }
-      .map-scene { min-height: 520px; }
-      .cta { padding: 22px; border-radius: 28px; }
-    }
+    *{box-sizing:border-box} html{scroll-behavior:smooth}
+    body{margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;background:
+      radial-gradient(circle at 50% -10%, rgba(255,255,255,.12), transparent 26%),
+      radial-gradient(circle at 0% 40%, rgba(125,226,255,.10), transparent 24%),
+      radial-gradient(circle at 100% 90%, rgba(200,255,90,.10), transparent 22%),
+      var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden}
+    .orb{position:fixed;border-radius:999px;filter:blur(64px);opacity:.7;pointer-events:none;animation:drift 9s ease-in-out infinite;z-index:0}
+    .orb.one{width:420px;height:420px;top:-110px;left:50%;transform:translateX(-50%);background:rgba(255,255,255,.09)}
+    .orb.two{width:240px;height:240px;top:420px;left:-80px;background:rgba(125,226,255,.12);animation-delay:1.2s}
+    .orb.three{width:320px;height:320px;right:-60px;bottom:0;background:rgba(200,255,90,.12);animation-delay:2.5s}
+    .wrap{position:relative;z-index:1;max-width:var(--max);margin:0 auto;padding:28px 24px 80px}
+    .topbar{position:sticky;top:16px;z-index:12;display:flex;align-items:center;justify-content:space-between;gap:20px;padding:14px 20px;border:1px solid var(--line);background:rgba(0,0,0,.34);backdrop-filter:blur(18px);border-radius:999px;margin-bottom:40px}
+    .eyebrow{font-size:11px;letter-spacing:.34em;text-transform:uppercase;color:var(--soft);margin:0 0 4px}
+    .topbar h1{margin:0;font-size:14px;font-weight:600;color:rgba(255,255,255,.90)}
+    .nav{display:flex;gap:20px;font-size:14px;color:var(--muted)} .nav a{color:inherit;text-decoration:none}
+    .nav a:hover{color:#fff}
+    .hero{display:grid;grid-template-columns:1.1fr .9fr;gap:28px;align-items:end;padding:20px 0 78px}
+    .pill{display:inline-flex;align-items:center;border:1px solid var(--line);background:rgba(255,255,255,.05);padding:9px 14px;border-radius:999px;font-size:12px;color:var(--muted);backdrop-filter:blur(12px)}
+    .headline{margin:18px 0 0;max-width:860px}
+    .headline-line{display:block;overflow:hidden;font-size:clamp(3rem,7.3vw,5.9rem);line-height:.97;letter-spacing:-.05em;font-weight:680}
+    .headline-line span{display:block;transform:translateY(110%);animation:reveal .9s cubic-bezier(.22,1,.36,1) forwards}
+    .headline-line:nth-child(2) span{animation-delay:.08s}.headline-line:nth-child(3) span{animation-delay:.16s}
+    .lead{max-width:760px;margin:22px 0 0;color:var(--muted);font-size:18px;line-height:1.75;opacity:0;transform:translateY(22px);animation:fadeUp .9s .28s forwards}
+    .actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px;opacity:0;transform:translateY(18px);animation:fadeUp .8s .38s forwards}
+    .btn{appearance:none;border:1px solid transparent;border-radius:999px;padding:14px 20px;font:inherit;cursor:pointer;transition:transform .2s ease,background .2s ease,border-color .2s ease,color .2s ease}
+    .btn.primary{background:#fff;color:#000}.btn.secondary{background:rgba(255,255,255,.05);color:rgba(255,255,255,.82);border-color:rgba(255,255,255,.14)}
+    .btn:hover{transform:translateY(-2px)}
+    .glass{border:1px solid var(--line);background:var(--panel);border-radius:32px;backdrop-filter:blur(18px);box-shadow:var(--shadow)}
+    .heroPanel{padding:16px}.heroPanelInner{padding:20px;border-radius:26px;border:1px solid var(--line);background:linear-gradient(to bottom, rgba(255,255,255,.09), rgba(255,255,255,.03))}
+    .metricGrid{display:grid;gap:14px}.metricCard{padding:18px;border-radius:20px;border:1px solid var(--line);background:rgba(0,0,0,.20);transition:transform .25s ease,background .25s ease}
+    .metricCard:hover{transform:translateY(-4px);background:rgba(255,255,255,.07)} .metricValue{font-size:clamp(2rem,4vw,2.35rem);font-weight:680;letter-spacing:-.04em}
+    .metricLabel{margin-top:6px;font-size:14px;color:rgba(255,255,255,.56)}
+    .section{margin-top:84px}.sectionHead{display:flex;justify-content:space-between;gap:24px;align-items:end;margin-bottom:22px}
+    .sectionTitle{margin:10px 0 0;font-size:clamp(2.1rem,5vw,4rem);letter-spacing:-.045em;line-height:1.02}
+    .sectionCopy{max-width:620px;color:var(--muted);line-height:1.75;font-size:15px}
+    .toolbar{display:grid;grid-template-columns:1.1fr .9fr;gap:16px;margin-top:24px}
+    .toolbar .glass{padding:18px 20px}
+    .field{display:flex;flex-direction:column;gap:8px}
+    .label{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--soft)}
+    select{background:#0d1016;color:#fff;border:1px solid var(--line);border-radius:16px;padding:12px 14px;font:inherit}
+    .resultsGrid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:16px}
+    .mini{padding:18px;border:1px solid var(--line);border-radius:22px;background:rgba(255,255,255,.04)}
+    .mini .k{font-size:12px;color:var(--soft);text-transform:uppercase;letter-spacing:.18em}.mini .v{margin-top:10px;font-size:28px;font-weight:700;letter-spacing:-.04em}.mini .s{margin-top:6px;font-size:13px;color:var(--muted)}
+    .tabbar{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}
+    .tab{padding:10px 14px;border-radius:999px;border:1px solid var(--line);background:rgba(255,255,255,.04);cursor:pointer;color:var(--muted)}
+    .tab.active{background:rgba(255,255,255,.12);color:#fff}
+    .tableWrap{overflow:auto;border:1px solid var(--line);border-radius:24px;background:rgba(255,255,255,.04);margin-top:16px}
+    table{width:100%;border-collapse:collapse;min-width:720px} th,td{padding:14px 16px;border-bottom:1px solid rgba(255,255,255,.06);text-align:left;font-size:14px}
+    th{color:var(--soft);font-weight:600;text-transform:uppercase;letter-spacing:.12em;font-size:11px;background:rgba(255,255,255,.02)}
+    tr:hover td{background:rgba(255,255,255,.02)}
+    .systemGrid{display:grid;grid-template-columns:.88fr 1.12fr;gap:16px}
+    .stackList,.stackGrid,.cta{padding:24px}
+    .stackItem,.badge,.province,.rankingCard{padding:14px 16px;border-radius:18px;border:1px solid var(--line);background:rgba(255,255,255,.04);transition:transform .2s ease,background .2s ease}
+    .stackItem:hover,.badge:hover,.province:hover,.rankingCard:hover{transform:translateY(-4px);background:rgba(255,255,255,.08)}
+    .stackKey{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:14px;color:rgba(255,255,255,.86)}
+    .stackDesc{margin-top:5px;font-size:14px;color:rgba(255,255,255,.50)}
+    .badgeGrid,.rankingGrid{display:grid;gap:12px;grid-template-columns:repeat(4,1fr)}
+    .workflow{margin-top:18px;padding:20px;border-radius:24px;border:1px solid var(--line);background:linear-gradient(to right, rgba(255,255,255,.10), rgba(255,255,255,.03))}
+    .workflowTitle{font-size:11px;letter-spacing:.32em;text-transform:uppercase;color:var(--soft)}
+    .workflow strong{display:block;margin-top:10px;font-size:22px;font-weight:600;color:rgba(255,255,255,.86);letter-spacing:-.03em}
+    .workflow p{margin:8px 0 0;color:var(--muted);line-height:1.75;font-size:14px}
+    .split2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+    .list{display:grid;gap:10px}.listItem{display:flex;justify-content:space-between;gap:16px;padding:14px 16px;border:1px solid var(--line);border-radius:18px;background:rgba(255,255,255,.04)}
+    .note{margin-top:22px;font-size:12px;color:var(--soft)}
+    .reveal{opacity:0;transform:translateY(34px) scale(.99);transition:opacity .8s cubic-bezier(.22,1,.36,1),transform .8s cubic-bezier(.22,1,.36,1)}
+    .reveal.in-view{opacity:1;transform:translateY(0) scale(1)}
+    @keyframes reveal{to{transform:translateY(0)}} @keyframes fadeUp{to{opacity:1;transform:translateY(0) scale(1)}}
+    @keyframes drift{0%,100%{transform:translateY(0) translateX(0) scale(1)}50%{transform:translateY(-18px) translateX(6px) scale(1.04)}}
+    @media (max-width:1100px){.hero,.toolbar,.systemGrid,.split2,.sectionHead{grid-template-columns:1fr;display:grid}.resultsGrid,.rankingGrid,.badgeGrid{grid-template-columns:repeat(2,1fr)}.nav{display:none}}
+    @media (max-width:700px){.wrap{padding:18px 16px 48px}.resultsGrid,.rankingGrid,.badgeGrid{grid-template-columns:1fr}.topbar{margin-bottom:24px}.hero{padding-bottom:46px}}
   </style>
 </head>
 <body>
   <div class="orb one"></div><div class="orb two"></div><div class="orb three"></div>
   <div class="wrap">
     <header class="topbar">
-      <div>
-        <p class="eyebrow">CAONGD / Informe interactivo premium</p>
-        <h1 id="site-title">Sistema visual del trabajo de las ONGD andaluzas</h1>
-      </div>
-      <nav class="nav">
-        <a href="#inicio">Inicio</a><a href="#indicadores">Indicadores</a><a href="#mapa">Mapa</a><a href="#sistema">Sistema</a><a href="#comparativas">Comparativas</a>
-      </nav>
+      <div><p class="eyebrow">CAONGD / Informe interactivo profesional</p><h1>Sistema visual del trabajo de las ONGD y universidades andaluzas</h1></div>
+      <nav class="nav"><a href="#inicio">Inicio</a><a href="#explorador">Explorador</a><a href="#sistema">Sistema</a><a href="#rankings">Rankings</a><a href="#base-social">Base social</a></nav>
     </header>
 
     <section id="inicio" class="hero">
       <div>
-        <div class="pill">Prototipo conceptual · estilo ultra premium 2026</div>
-        <div class="headline" id="headline"></div>
-        <p class="lead" id="lead"></p>
+        <div class="pill">Informe 2023 · regeneración automática · visualización personalizable</div>
+        <div class="headline">
+          <div class="headline-line"><span>Un informe interactivo</span></div>
+          <div class="headline-line"><span>capaz de cruzar variables,</span></div>
+          <div class="headline-line"><span>comparar y escalar.</span></div>
+        </div>
+        <p class="lead">Esta versión rehace profesionalmente la visualización del informe CAONGD 2023 e integra un motor de datos para generar automáticamente el informe anual, explorar dimensiones y visualizar resultados de forma dinámica y personalizable.</p>
         <div class="actions">
-          <button class="btn primary" id="cta-primary"></button>
-          <button class="btn secondary" id="cta-secondary"></button>
+          <button class="btn primary" onclick="document.querySelector('#explorador').scrollIntoView({behavior:'smooth'})">Abrir explorador</button>
+          <button class="btn secondary" onclick="document.querySelector('#sistema').scrollIntoView({behavior:'smooth'})">Ver motor automático</button>
         </div>
       </div>
-      <div class="glass metric-panel">
-        <div class="metric-panel-inner">
-          <div class="eyebrow" style="letter-spacing:.28em; margin-bottom:18px;">Resumen · 2023</div>
-          <div class="metric-grid" id="metrics-grid"></div>
+      <div class="glass heroPanel">
+        <div class="heroPanelInner">
+          <div class="eyebrow" style="letter-spacing:.28em; margin-bottom:18px;">Resumen 2023</div>
+          <div class="metricGrid" id="summary-cards"></div>
         </div>
       </div>
     </section>
 
-    <section id="indicadores" class="section reveal">
-      <div class="grid-4" id="areas-grid"></div>
-    </section>
-
-    <section id="mapa" class="section reveal">
-      <div class="map-layout">
+    <section id="explorador" class="section reveal">
+      <div class="sectionHead">
         <div>
-          <p class="eyebrow">Mapa interactivo</p>
-          <h2 class="section-title">Una lectura territorial inmediata.</h2>
-          <p class="section-copy">El sistema propone un mapa de Andalucía con microinteracciones, filtros por provincia, capas temáticas y acceso rápido a indicadores reales del informe y entidades presentes.</p>
-          <div class="province-grid" id="province-grid"></div>
+          <p class="eyebrow">Explorador dinámico</p>
+          <h2 class="sectionTitle">El usuario puede integrar variables y cambiar la lectura.</h2>
         </div>
-        <div class="glass map-panel">
-          <div class="map-scene">
-            <div class="map-light"></div>
-            <div class="map-top">
-              <div><p class="eyebrow">Andalucía</p><div style="font-size:30px; font-weight:650; letter-spacing:-.04em;">Vista geográfica premium</div></div>
-              <div class="status">Datos en vivo</div>
-            </div>
-            <div class="map-mosaic">
-              <div class="map-cell"></div><div class="map-cell active"></div><div class="map-cell active"></div>
-              <div class="map-cell"></div><div class="map-cell active"></div><div class="map-cell active"></div>
-              <div class="map-cell"></div><div class="map-cell active"></div><div class="map-cell"></div>
-            </div>
-            <div class="map-stats">
-              <div class="map-stat"><small>Cobertura</small><strong id="coverage-stat">8 provincias</strong></div>
-              <div class="map-stat"><small>Filtros</small><strong>Tema / entidad</strong></div>
-              <div class="map-stat"><small>Comparar</small><strong>Años y áreas</strong></div>
-            </div>
+        <p class="sectionCopy">Selecciona una vista, una dimensión y una métrica. El sistema recompone automáticamente tarjetas, rankings y tablas. Esta lógica es la base para que cada nuevo año se publique con la misma estructura sin rehacer la web.</p>
+      </div>
+
+      <div class="toolbar">
+        <div class="glass">
+          <div class="field">
+            <label class="label" for="viewSelect">Vista</label>
+            <select id="viewSelect"></select>
+          </div>
+        </div>
+        <div class="glass">
+          <div class="field">
+            <label class="label" for="metricSelect">Métrica</label>
+            <select id="metricSelect"></select>
           </div>
         </div>
       </div>
+
+      <div class="resultsGrid" id="dynamic-cards"></div>
+      <div class="tableWrap"><table><thead id="dynamic-head"></thead><tbody id="dynamic-body"></tbody></table></div>
     </section>
 
     <section id="sistema" class="section reveal">
-      <div class="section-head">
-        <div>
-          <p class="eyebrow" id="system-eyebrow">Sistema de generación automática</p>
-          <h2 class="section-title">Todo preparado para generar el informe automáticamente.</h2>
-        </div>
-        <p class="section-copy">Datos estructurados, automatización y publicación continua para que CAONGD mantenga el sistema con trazabilidad y sin rehacer el informe cada año.</p>
+      <div class="sectionHead">
+        <div><p class="eyebrow">Sistema de generación automática</p><h2 class="sectionTitle">Un solo archivo de datos, múltiples salidas visuales.</h2></div>
+        <p class="sectionCopy">La herramienta propuesta permite integrar diversas variables, cargar series anuales y regenerar automáticamente un informe interactivo con filtros, rankings, comparativas y lectura territorial.</p>
       </div>
-      <div class="system-layout">
-        <div class="glass stack-list" id="layers-list"></div>
-        <div class="glass stack-grid">
-          <div class="badge-grid" id="capabilities-grid"></div>
+      <div class="systemGrid">
+        <div class="glass stackList" id="layers-list"></div>
+        <div class="glass stackGrid">
+          <div class="badgeGrid" id="dimensions-grid"></div>
           <div class="workflow">
-            <div class="workflow-title">Generación automática</div>
-            <strong id="workflow-steps"></strong>
-            <p>El sistema queda diseñado para transformar cada actualización anual en un informe interactivo completo, dinámico y personalizable.</p>
+            <div class="workflowTitle">Flujo automático</div>
+            <strong>Recoger datos → validar → transformar → visualizar → publicar</strong>
+            <p>El modelo separa contenido y presentación. Eso permite actualizar el informe con nuevos datos, añadir variables y mantener consistente toda la experiencia interactiva.</p>
           </div>
         </div>
       </div>
     </section>
 
-    <section id="comparativas" class="section reveal">
-      <p class="eyebrow">Comparativas interanuales</p>
-      <h2 class="section-title">Evolución interanual, sin fricción.</h2>
-      <div class="timeline-grid" id="timeline-grid" style="margin-top:28px;"></div>
+    <section id="rankings" class="section reveal">
+      <div class="sectionHead">
+        <div><p class="eyebrow">Rankings y focos</p><h2 class="sectionTitle">Lecturas ejecutivas de alto valor.</h2></div>
+        <p class="sectionCopy">Además de la navegación libre, el sistema destaca automáticamente territorios, áreas y entidades con mayor volumen relativo para facilitar lectura rápida a equipos técnicos, financiadores y comunicación.</p>
+      </div>
+      <div class="split2">
+        <div class="glass stackList">
+          <p class="eyebrow">Top países por inversión</p>
+          <div class="list" id="top-countries"></div>
+        </div>
+        <div class="glass stackList">
+          <p class="eyebrow">Top ONGD por fondos gestionados</p>
+          <div class="list" id="top-ongd"></div>
+        </div>
+      </div>
+      <div class="rankingGrid" id="area-cards" style="margin-top:16px"></div>
     </section>
 
-    <section class="section reveal">
-      <div class="glass cta">
-        <div class="cta-layout">
-          <div>
-            <p class="eyebrow">Resultado esperado</p>
-            <h2 class="section-title">Una plataforma institucional con presencia premium, preparada para comunicar y escalar.</h2>
-            <p>Este prototipo sirve como base visual para una propuesta comercial o técnica. Puede evolucionar hacia un sistema real con datos estructurados, generación automática del informe interactivo y herramientas de comparación entre años.</p>
-            <p class="note" id="source-note"></p>
-          </div>
-          <div class="cta-actions">
-            <button class="btn primary">Presentar sistema</button>
-            <button class="btn secondary">Ver comparativas anuales</button>
-          </div>
-        </div>
+    <section id="base-social" class="section reveal">
+      <div class="sectionHead">
+        <div><p class="eyebrow">Base social e implantación</p><h2 class="sectionTitle">El informe también mide legitimidad social.</h2></div>
+        <p class="sectionCopy">Se incorporan indicadores sobre personas socias, voluntariado, personal contratado, personal expatriado y composición de órganos de gobierno. Esta capa puede seguir creciendo con tramos de edad y evolución anual.</p>
+      </div>
+      <div class="resultsGrid" id="social-cards"></div>
+      <div class="glass cta" style="margin-top:16px">
+        <h3 style="margin:0;font-size:28px;letter-spacing:-.03em">Arquitectura recomendada de la herramienta</h3>
+        <p style="max-width:860px">Frontend estático premium + archivo JSON anual + posibilidad de conectar formularios o base de datos. El sistema puede crecer hacia paneles comparativos 2022/2023/2024, filtros múltiples, exportación de vistas y cuadros específicos para Andalucía, otros países, ODS, financiadoras, provincias y grupos de población.</p>
+        <p class="note">Diseñado para que la CAONGD pueda publicar un nuevo año cambiando datos, no rehaciendo páginas.</p>
       </div>
     </section>
   </div>
 
-  <script>
-    function formatNumber(value) {
-      if (value === null || value === undefined) return "—";
-      return new Intl.NumberFormat("es-ES").format(value);
-    }
-    function createMetricCard(value, label) {
-      return `<div class="metric-card"><div class="metric-value">${value}</div><div class="metric-label">${label}</div></div>`;
-    }
-    async function loadData() {
-      const response = await fetch("./data.json");
-      if (!response.ok) throw new Error("No se pudo cargar data.json");
-      return response.json();
-    }
-    function renderHeadline(lines) {
-      const headline = document.getElementById("headline");
-      headline.innerHTML = lines.map(line => `<div class="headline-line"><span>${line}</span></div>`).join("");
-    }
-    function renderSummary(data) {
-      const s = data.summary;
-      const metrics = [
-        { value: formatNumber(s.andalusia_participants), label: "personas participantes en Andalucía" },
-        { value: `${String(s.women_percentage).replace(".", ",")}%`, label: "participación de mujeres" },
-        { value: formatNumber(s.other_countries_reached), label: "personas alcanzadas en otros países" },
-        { value: formatNumber(s.countries_and_territories), label: "países y territorios" }
-      ];
-      document.getElementById("metrics-grid").innerHTML = metrics.map(m => createMetricCard(m.value, m.label)).join("");
-    }
-    function renderAreas(data) {
-      document.getElementById("areas-grid").innerHTML = data.andalusia.areas.map((area, index) => {
-        const extra = [];
-        if (area.projects !== null) extra.push(`${formatNumber(area.projects)} proyectos`);
-        if (area.participants !== null) extra.push(`${formatNumber(area.participants)} participantes`);
-        return `<article class="info-card">
-          <div class="icon-dot" style="animation-delay:${index * 0.2}s"></div>
-          <h3>${area.name}</h3>
-          <p>${area.description}${extra.length ? ` ${extra.join(" · ")}.` : ""}</p>
-        </article>`;
-      }).join("");
-    }
-    function renderProvinces(data) {
-      document.getElementById("province-grid").innerHTML = data.andalusia.provinces.map(p => `<div class="province">${p.name}</div>`).join("");
-      document.getElementById("coverage-stat").textContent = `${data.andalusia.provinces.length} provincias`;
-    }
-    function renderSystem(data) {
-      document.getElementById("layers-list").innerHTML = data.system.layers.map(layer => `
-        <div class="stack-item"><div class="stack-key">${layer.name}</div><div class="stack-desc">${layer.description}</div></div>
-      `).join("");
-      document.getElementById("capabilities-grid").innerHTML = data.system.capabilities.map(item => `<div class="badge">${item}</div>`).join("");
-      document.getElementById("workflow-steps").textContent = data.system.steps.join(" → ");
-      document.getElementById("system-eyebrow").textContent = data.system.title;
-    }
-    function renderTimeline(data) {
-      document.getElementById("timeline-grid").innerHTML = data.comparisons.timeline.map(item => `
-        <article class="timeline-card"><div class="year">${item.year}</div><h4>${item.title}</h4><p>${item.detail}</p></article>
-      `).join("");
-    }
-    function bindUi(data) {
-      document.getElementById("site-title").textContent = data.ui.site_title;
-      document.getElementById("lead").textContent = data.ui.lead;
-      document.getElementById("cta-primary").textContent = data.ui.cta_primary;
-      document.getElementById("cta-secondary").textContent = data.ui.cta_secondary;
-      document.getElementById("source-note").textContent =
-        `Base integrada desde el informe 2023 y el sitio del informe. Año: ${data.meta.year}.`;
-      document.getElementById("cta-primary").addEventListener("click", () => document.querySelector("#sistema").scrollIntoView({ behavior: "smooth" }));
-      document.getElementById("cta-secondary").addEventListener("click", () => document.querySelector("#comparativas").scrollIntoView({ behavior: "smooth" }));
-      renderHeadline(data.ui.headline);
-    }
-    function initRevealObserver() {
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => { if (entry.isIntersecting) entry.target.classList.add("in-view"); });
-      }, { threshold: 0.18 });
-      document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
-    }
-    async function init() {
-      try {
-        const data = await loadData();
-        bindUi(data);
-        renderSummary(data);
-        renderAreas(data);
-        renderProvinces(data);
-        renderSystem(data);
-        renderTimeline(data);
-        initRevealObserver();
-      } catch (error) {
-        console.error(error);
-        document.body.insertAdjacentHTML("beforeend",
-          `<div style="position:fixed;left:16px;right:16px;bottom:16px;padding:14px 16px;background:#200;border:1px solid #500;color:#fff;border-radius:12px;z-index:9999">
-            Error cargando data.json. Comprueba que index.html y data.json estén en la misma carpeta.
-          </div>`);
-      }
-    }
-    init();
-  </script>
+<script>
+function fmt(n){ if(n===null||n===undefined) return '—'; return new Intl.NumberFormat('es-ES').format(n); }
+async function loadData(){ const r = await fetch('./data.json'); if(!r.ok) throw new Error('No se pudo cargar data.json'); return r.json(); }
+
+const viewConfigs = {
+  international_geographic_areas: {
+    label: 'Trabajo internacional · áreas geográficas',
+    getRows: d => d.international_work.geographic_areas.map(x => ({
+      nombre: x.name, paises: x.countries, ongd: x.ongd, proyectos: x.projects, personas: x.people, inversion: x.investment_eur
+    }))
+  },
+  international_top_countries: {
+    label: 'Trabajo internacional · países con más inversión',
+    getRows: d => d.international_work.top_countries_investment.map(x => ({
+      nombre: x.name, proyectos: x.projects, personas: x.people, inversion: x.investment_eur
+    }))
+  },
+  andalusia_areas: {
+    label: 'Andalucía · áreas de trabajo',
+    getRows: d => d.andalusia_work.areas.map(x => ({
+      nombre: x.name, ongd: x.ongd, proyectos: x.projects, personas: x.people, hombres: x.men, mujeres: x.women, inversion: x.investment_eur
+    }))
+  },
+  andalusia_provinces: {
+    label: 'Andalucía · provincias',
+    getRows: d => d.andalusia_work.provinces.map(x => ({
+      nombre: x.name, ongd: x.ongd, proyectos: x.projects, inversion: x.investment_eur
+    }))
+  },
+  epd_thematics: {
+    label: 'Andalucía · EpD por temáticas',
+    getRows: d => d.andalusia_work.epd_thematics.map(x => ({
+      nombre: x.name, ongd: x.ongd, proyectos: x.projects, inversion: x.investment_eur
+    }))
+  }
+};
+
+const metricOptions = {
+  proyectos: 'Número de proyectos',
+  personas: 'Personas',
+  inversion: 'Inversión (€)',
+  ongd: 'Número de ONGD',
+  paises: 'Número de países',
+  hombres: 'Hombres',
+  mujeres: 'Mujeres'
+};
+
+function setupSummary(d){
+  const cards = [
+    {v: fmt(d.international_work.countries), l: 'países y territorios'},
+    {v: fmt(d.international_work.projects), l: 'proyectos internacionales'},
+    {v: fmt(d.andalusia_work.projects), l: 'proyectos en Andalucía'},
+    {v: fmt(d.social_base.members), l: 'personas socias'}
+  ];
+  document.getElementById('summary-cards').innerHTML = cards.map(c => `<div class="metricCard"><div class="metricValue">${c.v}</div><div class="metricLabel">${c.l}</div></div>`).join('');
+}
+
+function setupSystem(d){
+  document.getElementById('layers-list').innerHTML = [
+    ['Capa de datos', 'JSON anual con estructura estable y ampliable'],
+    ['Transformación', 'Normalización de cifras, dimensiones y series comparables'],
+    ['Motor visual', 'Tarjetas, rankings, tablas y vistas filtrables'],
+    ['Publicación', 'Salida estática lista para web pública'],
+    ['Escalado', 'Admite nuevas variables, años y módulos temáticos']
+  ].map(x => `<div class="stackItem"><div class="stackKey">${x[0]}</div><div class="stackDesc">${x[1]}</div></div>`).join('');
+  document.getElementById('dimensions-grid').innerHTML = d.automation.dimensions.map(x => `<div class="badge">${x}</div>`).join('');
+}
+
+function setupRankings(d){
+  document.getElementById('top-countries').innerHTML = d.international_work.top_countries_investment.map((x,i) => `
+    <div class="listItem"><div><strong>${i+1}. ${x.name}</strong><div style="margin-top:6px;color:var(--muted);font-size:13px">${fmt(x.projects)} proyectos · ${fmt(x.people)} personas</div></div><div><strong>${fmt(x.investment_eur)} €</strong></div></div>
+  `).join('');
+  document.getElementById('top-ongd').innerHTML = d.international_work.top_ongd_funds.map((x,i) => `
+    <div class="listItem"><div><strong>${i+1}. ${x.name}</strong><div style="margin-top:6px;color:var(--muted);font-size:13px">${fmt(x.projects)} proyectos · ${fmt(x.countries)} países</div></div><div><strong>${fmt(x.investment_eur)} €</strong></div></div>
+  `).join('');
+  document.getElementById('area-cards').innerHTML = d.andalusia_work.areas.map(x => `
+    <div class="rankingCard"><div class="eyebrow" style="margin-bottom:10px">${x.name}</div><div style="font-size:32px;font-weight:700;letter-spacing:-.04em">${fmt(x.projects)}</div><div style="margin-top:6px;color:var(--muted)">proyectos · ${fmt(x.people)} personas · ${fmt(x.investment_eur)} €</div></div>
+  `).join('');
+}
+
+function setupSocial(d){
+  const s = d.social_base;
+  const cards = [
+    ['Personas socias', fmt(s.members), `${String(s.members_women_pct).replace('.', ',')}% mujeres`],
+    ['Voluntariado Andalucía', fmt(s.volunteers_andalusia), `${String(s.volunteers_women_pct).replace('.', ',')}% mujeres`],
+    ['Personal contratado', fmt(s.staff_andalusia), `${String(s.staff_women_pct).replace('.', ',')}% mujeres`],
+    ['Personal expatriado', fmt(s.expatriates), `${String(s.expatriates_women_pct).replace('.', ',')}% mujeres`],
+    ['Juntas y patronatos', fmt(s.boards_total), `${String(s.boards_women_pct).replace('.', ',')}% mujeres`]
+  ];
+  document.getElementById('social-cards').innerHTML = cards.map(c => `<div class="mini"><div class="k">${c[0]}</div><div class="v">${c[1]}</div><div class="s">${c[2]}</div></div>`).join('');
+}
+
+function setupExplorer(data){
+  const viewSelect = document.getElementById('viewSelect');
+  const metricSelect = document.getElementById('metricSelect');
+
+  Object.entries(viewConfigs).forEach(([key,cfg]) => {
+    const opt = document.createElement('option'); opt.value = key; opt.textContent = cfg.label; viewSelect.appendChild(opt);
+  });
+  Object.entries(metricOptions).forEach(([key,label]) => {
+    const opt = document.createElement('option'); opt.value = key; opt.textContent = label; metricSelect.appendChild(opt);
+  });
+
+  function render(){
+    const rows = viewConfigs[viewSelect.value].getRows(data);
+    const metric = metricSelect.value;
+    const usable = rows.filter(r => r[metric] !== undefined && r[metric] !== null);
+    usable.sort((a,b)=> (b[metric]||0) - (a[metric]||0));
+
+    const top = usable.slice(0,4);
+    document.getElementById('dynamic-cards').innerHTML = top.map((r, idx) => `
+      <div class="mini">
+        <div class="k">#${idx+1} · ${r.nombre}</div>
+        <div class="v">${metric === 'inversion' ? fmt(r[metric]) + ' €' : fmt(r[metric])}</div>
+        <div class="s">${Object.keys(r).filter(k=>!['nombre',metric].includes(k) && r[k]!==null && r[k]!==undefined).slice(0,2).map(k => `${metricOptions[k] || k}: ${fmt(r[k])}`).join(' · ')}</div>
+      </div>
+    `).join('');
+
+    const keys = ['nombre', ...Object.keys(usable[0]||{}).filter(k => k !== 'nombre')];
+    document.getElementById('dynamic-head').innerHTML = '<tr>' + keys.map(k => `<th>${k==='nombre'?'Nombre':(metricOptions[k]||k)}</th>`).join('') + '</tr>';
+    document.getElementById('dynamic-body').innerHTML = usable.map(r => '<tr>' + keys.map(k => `<td>${k==='inversion' ? (r[k]===null||r[k]===undefined?'—':fmt(r[k])+' €') : (typeof r[k]==='number'?fmt(r[k]):(r[k]??'—'))}</td>`).join('') + '</tr>').join('');
+  }
+
+  viewSelect.value = 'andalusia_areas';
+  metricSelect.value = 'proyectos';
+  viewSelect.addEventListener('change', render);
+  metricSelect.addEventListener('change', render);
+  render();
+}
+
+function initRevealObserver(){
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => { if (entry.isIntersecting) entry.target.classList.add('in-view'); });
+  }, { threshold: 0.18 });
+  document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+}
+
+async function init(){
+  try{
+    const data = await loadData();
+    setupSummary(data); setupSystem(data); setupRankings(data); setupSocial(data); setupExplorer(data); initRevealObserver();
+  }catch(err){
+    console.error(err);
+    document.body.insertAdjacentHTML('beforeend', `<div style="position:fixed;left:16px;right:16px;bottom:16px;padding:14px 16px;background:#200;border:1px solid #500;color:#fff;border-radius:12px;z-index:9999">Error cargando data.json.</div>`);
+  }
+}
+init();
+</script>
 </body>
 </html>
