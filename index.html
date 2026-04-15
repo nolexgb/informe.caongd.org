@@ -266,7 +266,7 @@
     <header class="topbar">
       <div>
         <p class="eyebrow">CAONGD / Informe interactivo premium</p>
-        <h1>Sistema visual del trabajo de las ONGD andaluzas</h1>
+        <h1 id="site-title">Sistema visual del trabajo de las ONGD andaluzas</h1>
       </div>
       <nav class="nav">
         <a href="#inicio">Inicio</a>
@@ -280,68 +280,24 @@
     <section id="inicio" class="hero">
       <div>
         <div class="pill">Prototipo conceptual · estilo ultra premium 2026</div>
-        <div class="headline">
-          <div class="headline-line"><span>La cooperación andaluza,</span></div>
-          <div class="headline-line"><span>convertida en una experiencia</span></div>
-          <div class="headline-line"><span>visual de alto nivel.</span></div>
-        </div>
-        <p class="lead">
-          Una plataforma pensada para comunicar mejor, actualizarse de forma automática y transformar datos institucionales en una narrativa clara, elegante y memorable.
-        </p>
+        <div class="headline" id="headline"></div>
+        <p class="lead" id="lead"></p>
         <div class="actions">
-          <button class="btn primary" onclick="document.querySelector('#sistema').scrollIntoView({behavior:'smooth'})">Ver sistema interactivo</button>
-          <button class="btn secondary" onclick="document.querySelector('#comparativas').scrollIntoView({behavior:'smooth'})">Explorar comparativas</button>
+          <button class="btn primary" id="cta-primary"></button>
+          <button class="btn secondary" id="cta-secondary"></button>
         </div>
       </div>
 
       <div class="glass metric-panel">
         <div class="metric-panel-inner">
-          <div class="eyebrow" style="letter-spacing:.28em; margin-bottom:18px;">Resumen · 2026</div>
-          <div class="metric-grid">
-            <div class="metric-card">
-              <div class="metric-value">1.753.753</div>
-              <div class="metric-label">personas participantes en Andalucía</div>
-            </div>
-            <div class="metric-card">
-              <div class="metric-value">52,5%</div>
-              <div class="metric-label">participación de mujeres</div>
-            </div>
-            <div class="metric-card">
-              <div class="metric-value">14.354.248</div>
-              <div class="metric-label">personas alcanzadas en otros países</div>
-            </div>
-            <div class="metric-card">
-              <div class="metric-value">60</div>
-              <div class="metric-label">países y territorios</div>
-            </div>
-          </div>
+          <div class="eyebrow" style="letter-spacing:.28em; margin-bottom:18px;">Resumen · 2023</div>
+          <div class="metric-grid" id="metrics-grid"></div>
         </div>
       </div>
     </section>
 
     <section id="indicadores" class="section reveal">
-      <div class="grid-4">
-        <article class="info-card">
-          <div class="icon-dot"></div>
-          <h3>Educación para el desarrollo</h3>
-          <p>263 proyectos en Andalucía con 608.550 personas participantes, como una de las áreas con mayor volumen de intervención.</p>
-        </article>
-        <article class="info-card">
-          <div class="icon-dot" style="animation-delay:.2s"></div>
-          <h3>Acción social</h3>
-          <p>149 intervenciones en Andalucía orientadas a mejorar condiciones de vida y fortalecer el tejido social desde una mirada de derechos.</p>
-        </article>
-        <article class="info-card">
-          <div class="icon-dot" style="animation-delay:.4s"></div>
-          <h3>Participación y voluntariado</h3>
-          <p>Visualización específica para participación social, voluntariado en Andalucía y conexión con procesos de cooperación internacional.</p>
-        </article>
-        <article class="info-card">
-          <div class="icon-dot" style="animation-delay:.6s"></div>
-          <h3>Análisis sectorial</h3>
-          <p>Lectura combinada entre actividad en Andalucía y trabajo en otros países para mostrar alcance, evolución y capacidad colectiva.</p>
-        </article>
-      </div>
+      <div class="grid-4" id="areas-grid"></div>
     </section>
 
     <section id="mapa" class="section reveal">
@@ -352,16 +308,7 @@
           <p class="section-copy">
             El sistema propone un mapa de Andalucía con microinteracciones, filtros por provincia, capas temáticas y acceso rápido a indicadores reales del informe y entidades presentes.
           </p>
-          <div class="province-grid">
-            <div class="province">Sevilla</div>
-            <div class="province">Málaga</div>
-            <div class="province">Granada</div>
-            <div class="province">Cádiz</div>
-            <div class="province">Córdoba</div>
-            <div class="province">Jaén</div>
-            <div class="province">Huelva</div>
-            <div class="province">Almería</div>
-          </div>
+          <div class="province-grid" id="province-grid"></div>
         </div>
 
         <div class="glass map-panel">
@@ -386,7 +333,7 @@
               <div class="map-cell"></div>
             </div>
             <div class="map-stats">
-              <div class="map-stat"><small>Cobertura</small><strong>8 provincias</strong></div>
+              <div class="map-stat"><small>Cobertura</small><strong id="coverage-stat">8 provincias</strong></div>
               <div class="map-stat"><small>Filtros</small><strong>Tema / entidad</strong></div>
               <div class="map-stat"><small>Comparar</small><strong>Años y áreas</strong></div>
             </div>
@@ -398,7 +345,7 @@
     <section id="sistema" class="section reveal">
       <div class="section-head">
         <div>
-          <p class="eyebrow">Sistema de generación automática</p>
+          <p class="eyebrow" id="system-eyebrow">Sistema de generación automática</p>
           <h2 class="section-title">Todo preparado para generar el informe automáticamente.</h2>
         </div>
         <p class="section-copy">
@@ -407,28 +354,13 @@
       </div>
 
       <div class="system-layout">
-        <div class="glass stack-list">
-          <div class="stack-item"><div class="stack-key">Capa de datos</div><div class="stack-desc">series anuales, indicadores, entidades y territorios</div></div>
-          <div class="stack-item"><div class="stack-key">Motor visual</div><div class="stack-desc">gráficas, tarjetas, mapa y narrativa editorial</div></div>
-          <div class="stack-item"><div class="stack-key">Automatización</div><div class="stack-desc">validación, transformación y publicación</div></div>
-          <div class="stack-item"><div class="stack-key">Comparativas</div><div class="stack-desc">lectura interanual por áreas, personas y alcance</div></div>
-          <div class="stack-item"><div class="stack-key">Recursos públicos</div><div class="stack-desc">identidad visual, activos y documentación</div></div>
-        </div>
+        <div class="glass stack-list" id="layers-list"></div>
 
         <div class="glass stack-grid">
-          <div class="badge-grid">
-            <div class="badge">Datos estructurados</div>
-            <div class="badge">Mapas interactivos</div>
-            <div class="badge">Filtros dinámicos</div>
-            <div class="badge">Informe autogenerado</div>
-            <div class="badge">Comparativas interanuales</div>
-            <div class="badge">Narrativa visual</div>
-            <div class="badge">Escalabilidad anual</div>
-            <div class="badge">Personalización</div>
-          </div>
+          <div class="badge-grid" id="capabilities-grid"></div>
           <div class="workflow">
             <div class="workflow-title">Generación automática</div>
-            <strong>Recoger datos → validar → generar visualización → publicar</strong>
+            <strong id="workflow-steps"></strong>
             <p>El sistema queda diseñado para transformar cada actualización anual en un informe interactivo completo, dinámico y personalizable.</p>
           </div>
         </div>
@@ -438,28 +370,7 @@
     <section id="comparativas" class="section reveal">
       <p class="eyebrow">Comparativas interanuales</p>
       <h2 class="section-title">Evolución interanual, sin fricción.</h2>
-      <div class="timeline-grid" style="margin-top:28px;">
-        <article class="timeline-card">
-          <div class="year">2023</div>
-          <h4>Base de datos consolidada</h4>
-          <p>Se integran las cifras públicas del informe: Andalucía, entidades socias y trabajo en otros países.</p>
-        </article>
-        <article class="timeline-card">
-          <div class="year">2024</div>
-          <h4>Modelo automatizado</h4>
-          <p>La actualización anual pasa a estructurarse como un sistema de datos listo para regenerar el informe interactivo.</p>
-        </article>
-        <article class="timeline-card">
-          <div class="year">2025</div>
-          <h4>Comparativa sectorial</h4>
-          <p>Se habilitan comparativas interanuales para leer evolución, tendencias y cambios por áreas y territorios.</p>
-        </article>
-        <article class="timeline-card">
-          <div class="year">2026</div>
-          <h4>Experiencia personalizable</h4>
-          <p>El informe se consulta mediante filtros dinámicos, capas temáticas y recorridos adaptados a cada público.</p>
-        </article>
-      </div>
+      <div class="timeline-grid" id="timeline-grid" style="margin-top:28px;"></div>
     </section>
 
     <section class="section reveal">
@@ -482,13 +393,154 @@
   </div>
 
   <script>
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) entry.target.classList.add('in-view');
-      });
-    }, { threshold: 0.18 });
+    function formatNumber(value) {
+      if (value === null || value === undefined) return "—";
+      return new Intl.NumberFormat("es-ES").format(value);
+    }
 
-    document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+    function createMetricCard(value, label) {
+      return `
+        <div class="metric-card">
+          <div class="metric-value">${value}</div>
+          <div class="metric-label">${label}</div>
+        </div>
+      `;
+    }
+
+    async function loadData() {
+      const response = await fetch("./data.json");
+      if (!response.ok) {
+        throw new Error("No se pudo cargar data.json");
+      }
+      return response.json();
+    }
+
+    function renderHeadline(lines) {
+      const headline = document.getElementById("headline");
+      headline.innerHTML = lines.map((line) => `
+        <div class="headline-line"><span>${line}</span></div>
+      `).join("");
+    }
+
+    function renderSummary(data) {
+      const metricsGrid = document.getElementById("metrics-grid");
+      const summary = data.summary;
+
+      const metrics = [
+        { value: formatNumber(summary.andalusia_participants), label: "personas participantes en Andalucía" },
+        { value: `${String(summary.women_percentage).replace(".", ",")}%`, label: "participación de mujeres" },
+        { value: formatNumber(summary.other_countries_reached), label: "personas alcanzadas en otros países" },
+        { value: formatNumber(summary.countries_and_territories), label: "países y territorios" }
+      ];
+
+      metricsGrid.innerHTML = metrics.map(item => createMetricCard(item.value, item.label)).join("");
+    }
+
+    function renderAreas(data) {
+      const areasGrid = document.getElementById("areas-grid");
+      areasGrid.innerHTML = data.andalusia.areas.map((area, index) => {
+        const extra = [];
+        if (area.projects !== null) extra.push(`${formatNumber(area.projects)} proyectos`);
+        if (area.participants !== null) extra.push(`${formatNumber(area.participants)} participantes`);
+
+        return `
+          <article class="info-card">
+            <div class="icon-dot" style="animation-delay:${index * 0.2}s"></div>
+            <h3>${area.name}</h3>
+            <p>${area.description}${extra.length ? ` ${extra.join(" · ")}.` : ""}</p>
+          </article>
+        `;
+      }).join("");
+    }
+
+    function renderProvinces(data) {
+      const provinceGrid = document.getElementById("province-grid");
+      provinceGrid.innerHTML = data.andalusia.provinces.map((province) => `
+        <div class="province">${province.name}</div>
+      `).join("");
+
+      document.getElementById("coverage-stat").textContent = `${data.andalusia.provinces.length} provincias`;
+    }
+
+    function renderSystem(data) {
+      const layersList = document.getElementById("layers-list");
+      const capabilitiesGrid = document.getElementById("capabilities-grid");
+      const workflowSteps = document.getElementById("workflow-steps");
+
+      layersList.innerHTML = data.system.layers.map(layer => `
+        <div class="stack-item">
+          <div class="stack-key">${layer.name}</div>
+          <div class="stack-desc">${layer.description}</div>
+        </div>
+      `).join("");
+
+      capabilitiesGrid.innerHTML = data.system.capabilities.map(item => `
+        <div class="badge">${item}</div>
+      `).join("");
+
+      workflowSteps.textContent = data.system.steps.join(" → ");
+      document.getElementById("system-eyebrow").textContent = data.system.title;
+    }
+
+    function renderTimeline(data) {
+      const timelineGrid = document.getElementById("timeline-grid");
+      timelineGrid.innerHTML = data.comparisons.timeline.map(item => `
+        <article class="timeline-card">
+          <div class="year">${item.year}</div>
+          <h4>${item.title}</h4>
+          <p>${item.detail}</p>
+        </article>
+      `).join("");
+    }
+
+    function bindUi(data) {
+      document.getElementById("lead").textContent = data.ui.lead;
+      document.getElementById("cta-primary").textContent = data.ui.cta_primary;
+      document.getElementById("cta-secondary").textContent = data.ui.cta_secondary;
+
+      document.getElementById("cta-primary").addEventListener("click", () => {
+        document.querySelector("#sistema").scrollIntoView({ behavior: "smooth" });
+      });
+
+      document.getElementById("cta-secondary").addEventListener("click", () => {
+        document.querySelector("#comparativas").scrollIntoView({ behavior: "smooth" });
+      });
+
+      renderHeadline(data.ui.headline);
+    }
+
+    function initRevealObserver() {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) entry.target.classList.add("in-view");
+        });
+      }, { threshold: 0.18 });
+
+      document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
+    }
+
+    async function init() {
+      try {
+        const data = await loadData();
+        bindUi(data);
+        renderSummary(data);
+        renderAreas(data);
+        renderProvinces(data);
+        renderSystem(data);
+        renderTimeline(data);
+        initRevealObserver();
+      } catch (error) {
+        console.error(error);
+        document.body.insertAdjacentHTML(
+          "beforeend",
+          `<div style="position:fixed;left:16px;right:16px;bottom:16px;padding:14px 16px;background:#200;border:1px solid #500;color:#fff;border-radius:12px;z-index:9999">
+            Error cargando data.json. Comprueba que index.html y data.json estén en la misma carpeta.
+          </div>`
+        );
+      }
+    }
+
+    init();
   </script>
 </body>
 </html>
